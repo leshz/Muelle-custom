@@ -30,28 +30,32 @@ add_action('admin_menu','mapEdit_plugin_menu');
 * Función que pinta la página de configuración del plugin
 */
 function max_length_content_page_settings(){
+	
+	wp_enqueue_style( $handle="ccsAdmin",  $src = '/wp-content/plugins/Muelle-custom/css/admin.css');
+	wp_enqueue_script( $handle="jsAdmin" , $src= '/wp-content/plugins/Muelle-custom/js/adminScript.js')
+	
+	
 ?>
 	<div class="wrap">
-		<h2>Muelle en tiempo real</h2>
-		<form method="POST" action="options.php">
-			<?php 
-				settings_fields('max-length-content-settings-group');
-				do_settings_sections( 'max-length-content-settings-group' ); 
-			?>
-			<label>Longitud máxima:&nbsp;</label>
-			<input 	type="text" 
-					name="max_length_value" 
-					id="max_length_value" 
-					value="<?php echo get_option('max_length_value'); ?>" />
-			<?php submit_button(); ?>
-		</form>
+		<div class="muelle-form">
+			<h2>Editor Muelle actual</h2>
+			<form method="POST" action="options.php">
+				<div class="content-form">
+					<div class="bar-unity">
+						<label>Nombre del barco</label>
+						<input type="text" />
+					</div>
+				</div>
+				<?php submit_button(); ?>
+			</form>
+		</div>
 	</div>
 <?php
 }
 
 /*
 * Función que registra las opciones del formulario en una lista blanca para que puedan ser guardadas
-*/
+
 function max_length_content_settings(){
 	register_setting('max-length-content-settings-group',
 					 'max_length_value',
