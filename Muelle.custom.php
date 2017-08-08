@@ -39,7 +39,7 @@ function max_length_content_page_settings(){
 <div class="twelve columns">
 	<div class="wrap">
 		<div class="muelle-form">
-			<h2>Editor Muelle</h2>
+			<h4>Editor Muelle</h4>
 			<form method="POST" action="options.php">
 				<div class="content-form">
 					<div class="row bar-unity">
@@ -48,8 +48,13 @@ function max_length_content_page_settings(){
 							<input class="u-full-width" type="text" />
 						</div>
 						<div class="three columns">
-							<label>Nombre del barco</label>
-							<input class="u-full-width" type="text" />
+							<label>Muelle actual</label>
+							<select class="u-full-width" disabled>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+							</select>
 						</div>
 						<div class="three columns">
 							<label>Nombre del barco</label>
