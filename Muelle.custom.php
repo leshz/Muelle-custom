@@ -36,20 +36,36 @@ function max_length_content_page_settings(){
 	
 	
 ?>
+<div class="twelve columns">
 	<div class="wrap">
 		<div class="muelle-form">
-			<h2>Editor Muelle actual</h2>
+			<h2>Editor Muelle</h2>
 			<form method="POST" action="options.php">
 				<div class="content-form">
-					<div class="bar-unity">
-						<label>Nombre del barco</label>
-						<input type="text" />
+					<div class="row bar-unity">
+						<div class="four columns">
+							<label>Nombre del barco</label>
+							<input class="u-full-width" type="text" />
+						</div>
+						<div class="three columns">
+							<label>Nombre del barco</label>
+							<input class="u-full-width" type="text" />
+						</div>
+						<div class="three columns">
+							<label>Nombre del barco</label>
+							<input class="u-full-width" type="text" />
+						</div>
+						<div class="two columns b-section" >
+							<button class="button-primary edit"><span class="dashicons dashicons-admin-tools"></span></button>
+							<button class="button-primary moreInfo"><span class="dashicons dashicons-plus"></span></button>
+						</div>
 					</div>
 				</div>
 				<?php submit_button(); ?>
 			</form>
 		</div>
 	</div>
+</div>	
 <?php
 }
 
