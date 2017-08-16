@@ -49,3 +49,17 @@ there.
     background: white;
     padding: 10px 15px;
 }
+.completeform {
+    overflow: hidden;
+    height: 0;
+    transition: all 1s ease-in-out ;
+}
+
+.completeform.hiden {
+
+}
+
+.completeform.actived {
+    overflow:visible;
+    height: auto;
+}

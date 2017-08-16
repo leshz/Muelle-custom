@@ -40,33 +40,109 @@ function max_length_content_page_settings(){
 	<div class="wrap">
 		<div class="muelle-form">
 			<h4>Editor Muelle</h4>
-			<form method="POST" action="options.php">
+			<form >
 				<div class="content-form">
 					<div class="row bar-unity">
-						<div class="four columns">
-							<label>Nombre del barco</label>
-							<input class="u-full-width" type="text" />
+						<div class="front">
+							<div class="four columns">
+								<label>Nombre del barco</label>
+								<input class="u-full-width" type="text" />
+							</div>
+							<div class="three columns">
+								<label>Muelle actual</label>
+								<select class="u-full-width" disabled>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+								</select>
+							</div>
+							<div class="three columns">
+								<label>Nombre del barco</label>
+								<input class="u-full-width" type="text" />
+							</div>
+							<div class="two columns b-section" >
+								<a class="button-primary edit"><span class="dashicons dashicons-admin-tools"></span></a>
+								<a class="button-primary moreInfo"><span class="dashicons dashicons-plus"></span></a>
+							</div>
 						</div>
-						<div class="three columns">
-							<label>Muelle actual</label>
-							<select class="u-full-width" disabled>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-							</select>
-						</div>
-						<div class="three columns">
-							<label>Nombre del barco</label>
-							<input class="u-full-width" type="text" />
-						</div>
-						<div class="two columns b-section" >
-							<button class="button-primary edit"><span class="dashicons dashicons-admin-tools"></span></button>
-							<button class="button-primary moreInfo"><span class="dashicons dashicons-plus"></span></button>
+						<div class="completeform hiden">
+							<div class="row">
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+								<div class="three columns">
+									<label>Nombre del barco</label>
+									<input class="u-full-width" type="text" />
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<?php submit_button(); ?>
+			<?php //submit_button(); ?>
 			</form>
 		</div>
 	</div>
