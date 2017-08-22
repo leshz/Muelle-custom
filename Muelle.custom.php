@@ -40,17 +40,17 @@ function max_length_content_page_settings(){
 	<div class="wrap">
 		<div class="muelle-form">
 			<h4>Editor Muelle</h4>
-			<form >
+			<form method="POST" action="<?php  echo (plugin_dir_url(__FILE__) ."form_submit.php"); ?>" >
 				<div class="content-form">
 					<div class="row bar-unity">
 						<div class="front">
 							<div class="four columns">
-								<label>Nombre del barco</label>
-								<input class="u-full-width" type="text" />
+								<label>Motonave</label>
+								<input class="u-full-width" name="one[motonave]"type="text" />
 							</div>
 							<div class="three columns">
 								<label>Muelle actual</label>
-								<select class="u-full-width" disabled>
+								<select class="u-full-width" name="one[muelle]" >
 									<option value="1">1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -58,91 +58,59 @@ function max_length_content_page_settings(){
 								</select>
 							</div>
 							<div class="three columns">
-								<label>Nombre del barco</label>
-								<input class="u-full-width" type="text" />
+							<label>Orientación </label>
+								<select class="u-full-width" name="one[orientacion]" >
+									<option value="proa">Proa</option>
+									<option value="popa">Popa</option>
+								</select>
+								
 							</div>
 							<div class="two columns b-section" >
-								<a class="button-primary edit"><span class="dashicons dashicons-admin-tools"></span></a>
-								<a class="button-primary moreInfo"><span class="dashicons dashicons-plus"></span></a>
+								<a class="button-primary moreInfo"><span class="dashicons dashicons-plus"></span> Ver más</a>
 							</div>
 						</div>
 						<div class="completeform hiden">
 							<div class="row">
 								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
+									<label>Fecha de atraque</label>
+								<input class="u-full-width" name="one[orientacion]" type="text" />
 								</div>
 								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
+									<label>Agente Maritimo</label>
+									<input class="u-full-width" name="one[agente]" type="text" />
 								</div>
 								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
+									<label>Clientes Principales</label>
+									<input class="u-full-width" name="one[cliente]" type="text" />
 								</div>
 								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
+									<label>Tipo de Producto</label>
+									<input class="u-full-width" name="one[producto]" type="text" />
 								</div>
+							
 							</div>
 							<div class="row">
-								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
+									<div class="three columns">
+									<label>Tonelaje Anunciado</label>
+									<input class="u-full-width" name="one[tonelaje-anun]" type="text" />
 								</div>
 								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
+									<label>Tonelaje Descargado</label>
+									<input class="u-full-width" name="one[tonelaje-desc]" type="text" />
 								</div>
 								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
+									<label>Fecha de atraque</label>
+								<input class="u-full-width" name="one[date]" type="text" />
 								</div>
 								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
-								</div>
-							</div>
-							<div class="row">
-								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
-								</div>
-								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
-								</div>
-								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
-								</div>
-								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
-								</div>
-							</div>
-							<div class="row">
-								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
-								</div>
-								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
-								</div>
-								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
-								</div>
-								<div class="three columns">
-									<label>Nombre del barco</label>
-									<input class="u-full-width" type="text" />
+									<label>Vacio</label>
+									<input class="u-full-width" name="one[empty]"type="text" />
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			<?php //submit_button(); ?>
+			<button type="submit">Salvar</button>
 			</form>
 		</div>
 	</div>
@@ -150,19 +118,7 @@ function max_length_content_page_settings(){
 <?php
 }
 
-/*
-* Función que registra las opciones del formulario en una lista blanca para que puedan ser guardadas
 
-function max_length_content_settings(){
-	register_setting('max-length-content-settings-group',
-					 'max_length_value',
-					 'intval');
-}
-add_action('admin_init','max_length_content_settings');
-
-/*
-* Función que devuelve el contenido de un post limitado a la longitud configurada en la página de opciones 
-*/
 function max_length_action($content){
 	global $post;
 	//Comprobamos que sea un post y no estemos visualizando su vista individual
