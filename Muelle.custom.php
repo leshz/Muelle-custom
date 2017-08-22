@@ -31,8 +31,13 @@ add_action('admin_menu','mapEdit_plugin_menu');
 */
 function max_length_content_page_settings(){
 	
+	installDB();		
+	
 	wp_enqueue_style( $handle="ccsAdmin",  $src = '/wp-content/plugins/Muelle-custom/css/admin.css');
-	wp_enqueue_script( $handle="jsAdmin" , $src= '/wp-content/plugins/Muelle-custom/js/adminScript.js')
+	wp_enqueue_style( $handle="cssDatepicker",  $src = '/wp-content/plugins/Muelle-custom/css/datetimepicker.css');
+	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/js/mask.js');
+	wp_enqueue_script( $handle="datepicker" , $src= '/wp-content/plugins/Muelle-custom/js/datetimepicker.min.js');
+	wp_enqueue_script( $handle="jsAdmin" , $src= '/wp-content/plugins/Muelle-custom/js/adminScript.js');
 	
 	
 ?>
@@ -73,7 +78,7 @@ function max_length_content_page_settings(){
 							<div class="row">
 								<div class="three columns">
 									<label>Fecha de atraque</label>
-								<input class="u-full-width" name="one[orientacion]" type="text" />
+								<input class="u-full-width"  id="date" name="one[date]" type="text" />
 								</div>
 								<div class="three columns">
 									<label>Agente Maritimo</label>
@@ -92,15 +97,15 @@ function max_length_content_page_settings(){
 							<div class="row">
 									<div class="three columns">
 									<label>Tonelaje Anunciado</label>
-									<input class="u-full-width" name="one[tonelaje-anun]" type="text" />
+									<input class="u-full-width" id="ton" name="one[tonelaje-anun]" type="text" />
 								</div>
 								<div class="three columns">
 									<label>Tonelaje Descargado</label>
-									<input class="u-full-width" name="one[tonelaje-desc]" type="text" />
+									<input class="u-full-width"  id="ton"name="one[tonelaje-desc]" type="text" />
 								</div>
 								<div class="three columns">
 									<label>Fecha de atraque</label>
-								<input class="u-full-width" name="one[date]" type="text" />
+								<input class="u-full-width" id="date"name="one[empty]" type="text" />
 								</div>
 								<div class="three columns">
 									<label>Vacio</label>
@@ -131,4 +136,33 @@ function max_length_action($content){
 	return $content;
 }
 add_filter('the_content','max_length_action');
+
+	
+function installDB () {
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	global $wpdb;
+	global $jal_db_version;
+
+	$table_name = $wpdb->prefix . 'muelle_status';	
+	
+	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name){
+		$charset_collate = $wpdb->get_charset_collate();
+		$sql = "CREATE TABLE $table_name (`id` int(11) NOT NULL,
+		  `motonave` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+		  `muelle_actual` int(11) NOT NULL,
+		  `orientacion` int(11) NOT NULL,
+		  `fecha_atrac` date NOT NULL,
+		  `agente` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+		  `client_princp` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+		  `producto` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+		  `ton_anun` int(11) DEFAULT NULL,
+		  `ton_desc` int(11) DEFAULT NULL ) $charset_collate;";
+		dbDelta( $sql );
+		$sql = "ALTER TABLE $table_name ADD PRIMARY KEY (`id`);";
+		$wpdb->query($sql);
+		$sql = "ALTER TABLE $table_name MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
+		$wpdb->query($sql);
+	}
+}
+
 ?>
