@@ -1,18 +1,11 @@
 ( function( $ ) {
     
     $(document).ready(function(){
-        $.datetimepicker.setLocale('en');
-        
         var formAdmin = $('.muelle-form')
         formAdmin.find('#date').mask('00/00/0000')
-        formAdmin.find('#ton').mask('000.000.000.000.000', {reverse: true})
-    
-       $('#date').datetimepicker({
-            dayOfWeekStart: 1,
-            lang: 'en',
-            disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
-            startDate: '1986/01/05'
-        })
+        formAdmin.find('#ton').mask('000.000.000.000.000', {reverse: true})        
+        $('[data-toggle="datepicker"]').datepicker({startDate:true,language: 'es-ES'})
+
     
     })
     

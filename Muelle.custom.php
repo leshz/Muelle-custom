@@ -78,7 +78,7 @@ function max_length_content_page_settings(){
 							<div class="row">
 								<div class="three columns">
 									<label>Fecha de atraque</label>
-								<input class="u-full-width"  id="date" name="one[date]" type="text" />
+								<input class="u-full-width" data-toggle="datepicker" id="date" name="one[date]" type="text" />
 								</div>
 								<div class="three columns">
 									<label>Agente Maritimo</label>
