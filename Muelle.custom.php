@@ -13,6 +13,8 @@
 * Función para añadir una página al menú de administrador de wordpress
 */
 
+require_once('form_submit.php');
+
 
 
 function mapEdit_plugin_menu(){
@@ -38,8 +40,10 @@ function max_length_content_page_settings(){
 	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/js/mask.js');
 	wp_enqueue_script( $handle="datepicker" , $src= '/wp-content/plugins/Muelle-custom/js/datetimepicker.min.js');
 	wp_enqueue_script( $handle="jsAdmin" , $src= '/wp-content/plugins/Muelle-custom/js/adminScript.js');
+	$resultado = createFormConsulDb();
+
 	
-	
+
 ?>
 <div class="twelve columns">
 	<div class="wrap">
@@ -47,15 +51,22 @@ function max_length_content_page_settings(){
 			<h4>Editor Muelle</h4>
 			<form method="POST" action="<?php  echo (plugin_dir_url(__FILE__) ."form_submit.php"); ?>" >
 				<div class="content-form">
-					<div class="row bar-unity">
+				
+				<?php 
+				
+				$array = json_decode(json_encode($resultado), true);
+				foreach ($array as $item) {
+					
+				 ?>
+						<div class="row bar-unity">
 						<div class="front">
 							<div class="four columns">
 								<label>Motonave</label>
-								<input class="u-full-width" name="one[motonave]"type="text" />
+								<input class="u-full-width" name="one[motonave]" value="<?php echo $item['motonave']; ?>" type="text" />
 							</div>
 							<div class="three columns">
 								<label>Muelle actual</label>
-								<select class="u-full-width" name="one[muelle]" >
+								<select class="u-full-width" name="one[muelle]"  value="<?php echo $item['muelle_actual']; ?>">
 									<option value="1">1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -65,8 +76,8 @@ function max_length_content_page_settings(){
 							<div class="three columns">
 							<label>Orientación </label>
 								<select class="u-full-width" name="one[orientacion]" >
-									<option value="proa">Proa</option>
-									<option value="popa">Popa</option>
+									<option value="1">Proa</option>
+									<option value="2">Popa</option>
 								</select>
 								
 							</div>
@@ -78,30 +89,30 @@ function max_length_content_page_settings(){
 							<div class="row">
 								<div class="three columns">
 									<label>Fecha de atraque</label>
-								<input class="u-full-width" data-toggle="datepicker" id="date" name="one[date]" type="text" />
+								<input class="u-full-width" data-toggle="datepicker" id="date" name="one[date]" value="<?php echo $item['fecha_atrac'] ?>" type="text" />
 								</div>
 								<div class="three columns">
 									<label>Agente Maritimo</label>
-									<input class="u-full-width" name="one[agente]" type="text" />
+									<input class="u-full-width" name="one[agente]" value="<?php echo $item['agente']; ?>"type="text" />
 								</div>
 								<div class="three columns">
 									<label>Clientes Principales</label>
-									<input class="u-full-width" name="one[cliente]" type="text" />
+									<input class="u-full-width" name="one[cliente]" type="text"  value="<?php echo $item['client_princp']; ?>"/>
 								</div>
 								<div class="three columns">
 									<label>Tipo de Producto</label>
-									<input class="u-full-width" name="one[producto]" type="text" />
+									<input class="u-full-width" name="one[producto]" type="text" value="<?php echo $item['producto']; ?>" />
 								</div>
 							
 							</div>
 							<div class="row">
 									<div class="three columns">
 									<label>Tonelaje Anunciado</label>
-									<input class="u-full-width" id="ton" name="one[tonelaje-anun]" type="text" />
+									<input class="u-full-width" id="ton" name="one[tonelaje-anun]" type="text" value="<?php echo $item['ton_anun']; ?>" />
 								</div>
 								<div class="three columns">
 									<label>Tonelaje Descargado</label>
-									<input class="u-full-width"  id="ton"name="one[tonelaje-desc]" type="text" />
+									<input class="u-full-width"  id="ton"name="one[tonelaje-desc]" type="text" value="<?php echo $item['ton_desc']; ?>" />
 								</div>
 								<div class="three columns">
 									<label>Fecha de atraque</label>
@@ -109,11 +120,20 @@ function max_length_content_page_settings(){
 								</div>
 								<div class="three columns">
 									<label>Vacio</label>
-									<input class="u-full-width" name="one[empty]"type="text" />
+									<input class="u-full-width" name="one[empty]"type="text"  />
 								</div>
 							</div>
 						</div>
 					</div>
+					
+					
+					
+						
+				<?php } ?>
+					
+					
+					
+				
 				</div>
 			<button type="submit">Salvar</button>
 			</form>
@@ -122,8 +142,6 @@ function max_length_content_page_settings(){
 </div>	
 <?php
 }
-
-
 function max_length_action($content){
 	global $post;
 	//Comprobamos que sea un post y no estemos visualizando su vista individual
@@ -163,6 +181,30 @@ function installDB () {
 		$sql = "ALTER TABLE $table_name MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
 		$wpdb->query($sql);
 	}
+}
+
+function createFormConsulDb(){
+	global $wpdb;
+	$results = $wpdb->get_results( "SELECT * FROM wp_muelle_status" );
+	if(count($results) == 0){	
+		return $results = array(
+			0 => array(
+					'id' =>"" ,
+					'motonave' =>"" ,
+					'muelle_actual'=>"" ,
+					'orientacion' =>"" ,
+					'fecha_atrac' =>"" ,
+					'agente' =>"" ,
+					'client_princp' =>"" ,
+					'producto' =>"" ,
+					'ton_anun' =>"" ,
+					'ton_desc' => "")
+			);
+	}
+	else{
+		return $results;
+	}
+
 }
 
 ?>
