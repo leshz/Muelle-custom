@@ -36,6 +36,7 @@ function max_length_content_page_settings(){
 	installDB();		
 	
 	wp_enqueue_style( $handle="ccsAdmin",  $src = '/wp-content/plugins/Muelle-custom/css/admin.css');
+	wp_enqueue_style( $handle="icons",  $src = '/wp-content/plugins/Muelle-custom/css/font-awesome.min.css');
 	wp_enqueue_style( $handle="cssDatepicker",  $src = '/wp-content/plugins/Muelle-custom/css/datetimepicker.css');
 	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/js/mask.js');
 	wp_enqueue_script( $handle="datepicker" , $src= '/wp-content/plugins/Muelle-custom/js/datetimepicker.min.js');
@@ -48,7 +49,7 @@ function max_length_content_page_settings(){
 <div class="twelve columns">
 	<div class="wrap">
 		<div class="muelle-form">
-			<h4>Editor Muelle</h4>
+			<h1>Editor Muelle</h1>
 			<form method="POST" action="<?php  echo (plugin_dir_url(__FILE__) ."form_submit.php"); ?>" >
 				<div class="content-form">
 				
@@ -94,7 +95,7 @@ function max_length_content_page_settings(){
 									echo $item['fecha_atrac'];
 								}else{
 									$dateclear= strtotime($item['fecha_atrac']); 
-									$dateformat = date( 'm-d-Y H:i:s', $dateclear );  
+									$dateformat = date( 'd-m-Y H:i:s', $dateclear );  
 									echo $dateformat;
 									}
 								?>" type="text" />
@@ -143,7 +144,7 @@ function max_length_content_page_settings(){
 					
 				
 				</div>
-			<button type="submit">Salvar</button>
+			<button class="admin button button-primary" type="submit"><i class="fa fa-bath" aria-hidden="true"></i> Salvar</button>
 			</form>
 		</div>
 	</div>
