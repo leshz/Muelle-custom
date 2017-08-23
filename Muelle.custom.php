@@ -54,8 +54,8 @@ function max_length_content_page_settings(){
 				
 				<?php 
 				
-				$array = json_decode(json_encode($resultado), true);
-				foreach ($array as $item) {
+				$resultado = json_decode(json_encode($resultado), true);
+				foreach ($resultado as $item) {
 					
 				 ?>
 						<div class="row bar-unity">
@@ -89,7 +89,15 @@ function max_length_content_page_settings(){
 							<div class="row">
 								<div class="three columns">
 									<label>Fecha de atraque</label>
-								<input class="u-full-width" data-toggle="datepicker" id="date" name="one[date]" value="<?php echo $item['fecha_atrac'] ?>" type="text" />
+								<input class="u-full-width" data-toggle="datepicker" id="date" name="one[date]" value="<?php 
+								if($item['fecha_atrac']==""){
+									echo $item['fecha_atrac'];
+								}else{
+									$dateclear= strtotime($item['fecha_atrac']); 
+									$dateformat = date( 'm-d-Y H:i:s', $dateclear );  
+									echo $dateformat;
+									}
+								?>" type="text" />
 								</div>
 								<div class="three columns">
 									<label>Agente Maritimo</label>
