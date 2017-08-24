@@ -46,4 +46,25 @@
             })
         }
     })
+    
+    $(".content-form").on("click", ".delete", function(ev) {
+
+        var num = $(".bar-unity").length
+        console.log(num)
+        if (num >= 12) {
+            alert("no pueden haber mas de 12 barcos")
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/wp-admin/admin-ajax.php",
+                data: { 'action': 'addFieldForm' },
+                success: function(msg) {
+                    $(".content-form").append(msg)
+                },
+                error: function(msg) {
+                    console.log(msg.statusText);
+                }
+            })
+        }
+    })
 })(jQuery);

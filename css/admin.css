@@ -413,3 +413,17 @@ there.
 button.admin.button.button-primary {
     margin-top: 20px;
 }
+
+button.button-primary.delete {
+   background:#f44336;
+    box-shadow: none;
+    border: none;
+    text-shadow: none;
+}
+
+button.button-primary.moreInfo {
+    background:#1EAEDB;
+    box-shadow: none;
+    border: none;
+    text-shadow: none;
+}

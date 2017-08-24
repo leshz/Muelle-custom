@@ -83,7 +83,8 @@ function max_length_content_page_settings(){
 								
 							</div>
 							<div class="two columns b-section" >
-								<a class="button-primary moreInfo"><span class="dashicons dashicons-plus"></span> Ver más</a>
+								<button type="button" class="button-primary moreInfo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+								<button type="button" class="button-primary delete"><i class="fa fa-times" aria-hidden="true"></i></button>
 							</div>
 						</div>
 						<div class="completeform hiden">
@@ -211,12 +212,7 @@ function createFormConsulDb(){
 	else{
 		return $results;
 	}
-
 }
-
-
-
-
 function addFieldForm(){
 ?>
 	<div class="row bar-unity">
