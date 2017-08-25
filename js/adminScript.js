@@ -25,54 +25,34 @@
             subForm.addClass('hiden').removeClass('actived')
         }
     })
+    
+    $(".content-form").on("focus","#date",function (){
+     $('[data-toggle="datepicker"]').datepicker()    
+    })
 
     $("#submit").click(function(ev) {
-        ev.preventDefault()
-
-        var num = $(".bar-unity").length
-        console.log(num)
+        
+     
+   
 
     })
 
     $("#addField").click(function(ev) {
-
         var num = $(".bar-unity").length
-        console.log(num)
         if (num >= 12) {
             alert("no pueden haber mas de 12 barcos")
         } else {
-            $.ajax({
-                type: "POST",
-                url: "/wp-admin/admin-ajax.php",
-                data: { 'action': 'addFieldForm' },
-                success: function(msg) {
-                    $(".content-form").append(msg)
-                },
-                error: function(msg) {
-                    console.log(msg.statusText);
-                }
-            })
+            num+= 1 
+            var barUnityNew= $(".bar-unity").eq(0).clone();
+            barUnityNew.find('input,select').each(function() {
+            this.name= this.name.replace('0',num)
+            });
+            barUnityNew.find('input,select').val("")
+            $('.content-form').append(barUnityNew);
         }
     })
     
     $(".content-form").on("click", ".delete", function(ev) {
-
-        var num = $(".bar-unity").length
-        console.log(num)
-        if (num >= 12) {
-            alert("No pueden haber más de 12 barcos")
-        } else {
-            $.ajax({
-                type: "POST",
-                url: "/wp-admin/admin-ajax.php",
-                data: { 'action': 'addFieldForm' },
-                success: function(msg) {
-                    $(".content-form").append(msg)
-                },
-                error: function(msg) {
-                    console.log(msg.statusText);
-                }
-            })
-        }
+    alert("ay no me borres :( ")
     })
 })(jQuery);

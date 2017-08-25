@@ -13,7 +13,7 @@
 * Función para añadir una página al menú de administrador de wordpress
 */
 
-require_once('form_submit.php');
+//require_once('form_submit.php');
 
 
 
@@ -50,24 +50,24 @@ function max_length_content_page_settings(){
 	<div class="wrap">
 		<div class="muelle-form">
 			<h1>Editor Muelle</h1>
-			<form method="POST" action="<?php  echo (plugin_dir_url(__FILE__) ."form_submit.php"); ?>" >
+			<form method="POST"id="adminInfo" action="<?php  echo (plugin_dir_url(__FILE__) ."form_submit.php"); ?>" >
 				<div class="content-form">
 				
 				<?php 
 				
-				$resultado = json_decode(json_encode($resultado), true);
-				foreach ($resultado as $item) {
+				
+				foreach ($resultado as $form =>$item ) {
 					
 				 ?>
 						<div class="row bar-unity">
 						<div class="front">
 							<div class="four columns">
 								<label>Motonave</label>
-								<input class="u-full-width" name="one[motonave]" value="<?php echo $item['motonave']; ?>" type="text" />
+								<input class="u-full-width" name="<?php echo$form; ?>[motonave]" value="<?php echo $item['motonave']; ?>" type="text" />
 							</div>
 							<div class="three columns">
 								<label>Muelle actual</label>
-								<select class="u-full-width" name="one[muelle]"  value="<?php echo $item['muelle_actual']; ?>">
+								<select class="u-full-width" name="<?php echo$form; ?>[muelle]"  value="<?php echo $item['muelle_actual']; ?>">
 									<option value="1">1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -76,7 +76,7 @@ function max_length_content_page_settings(){
 							</div>
 							<div class="three columns">
 							<label>Orientación </label>
-								<select class="u-full-width" name="one[orientacion]" >
+								<select class="u-full-width" name="<?php echo$form; ?>[orientacion]" >
 									<option value="1">Proa</option>
 									<option value="2">Popa</option>
 								</select>
@@ -91,7 +91,7 @@ function max_length_content_page_settings(){
 							<div class="row">
 								<div class="three columns">
 									<label>Fecha de atraque</label>
-								<input class="u-full-width" data-toggle="datepicker" id="date" name="one[date]" value="<?php 
+								<input class="u-full-width" data-toggle="datepicker" id="date" name="<?php echo$form; ?>[date]" value="<?php 
 								if($item['fecha_atrac']==""){
 									echo $item['fecha_atrac'];
 								}else{
@@ -103,34 +103,34 @@ function max_length_content_page_settings(){
 								</div>
 								<div class="three columns">
 									<label>Agente Maritimo</label>
-									<input class="u-full-width" name="one[agente]" value="<?php echo $item['agente']; ?>"type="text" />
+									<input class="u-full-width" name="<?php echo$form; ?>[agente]" value="<?php echo $item['agente']; ?>"type="text" />
 								</div>
 								<div class="three columns">
 									<label>Clientes Principales</label>
-									<input class="u-full-width" name="one[cliente]" type="text"  value="<?php echo $item['client_princp']; ?>"/>
+									<input class="u-full-width" name="<?php echo$form; ?>[cliente]" type="text"  value="<?php echo $item['client_princp']; ?>"/>
 								</div>
 								<div class="three columns">
 									<label>Tipo de Producto</label>
-									<input class="u-full-width" name="one[producto]" type="text" value="<?php echo $item['producto']; ?>" />
+									<input class="u-full-width" name="<?php echo$form; ?>[producto]" type="text" value="<?php echo $item['producto']; ?>" />
 								</div>
 							
 							</div>
 							<div class="row">
 									<div class="three columns">
 									<label>Tonelaje Anunciado</label>
-									<input class="u-full-width" id="ton" name="one[tonelaje-anun]" type="text" value="<?php echo $item['ton_anun']; ?>" />
+									<input class="u-full-width" id="ton" name="<?php echo$form; ?>[tonelaje-anun]" type="text" value="<?php echo $item['ton_anun']; ?>" />
 								</div>
 								<div class="three columns">
 									<label>Tonelaje Descargado</label>
-									<input class="u-full-width"  id="ton"name="one[tonelaje-desc]" type="text" value="<?php echo $item['ton_desc']; ?>" />
+									<input class="u-full-width"  id="ton"name="<?php echo$form; ?>[tonelaje-desc]" type="text" value="<?php echo $item['ton_desc']; ?>" />
 								</div>
 								<div class="three columns">
 									<label>Fecha de atraque</label>
-								<input class="u-full-width" id="date"name="one[empty]" type="text" />
+								<input class="u-full-width" id="date"name="<?php echo$form; ?>[empty]" type="text" />
 								</div>
 								<div class="three columns">
 									<label>Vacio</label>
-									<input class="u-full-width" name="one[empty]"type="text"  />
+									<input class="u-full-width" name="<?php echo$form; ?>[empty2]"type="text"  />
 								</div>
 							</div>
 						</div>
@@ -139,7 +139,7 @@ function max_length_content_page_settings(){
 				</div>
 				<div class="row">
 					<div class="three columns">
-						<button type="button" class="admin button button-primary" id="submit" ><i class="fa fa-bath" aria-hidden="true"></i> Salvar</button>
+						<button type="submit" class="admin button button-primary" id="submit" ><i class="fa fa-bath" aria-hidden="true"></i> Salvar</button>
 					</div>
 					<div class="three columns">
 						<button id="addField" type="button"class="admin button button-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Campo</button>
@@ -195,7 +195,7 @@ function createFormConsulDb(){
 	global $wpdb;
 	$results = $wpdb->get_results( "SELECT * FROM wp_muelle_status" );
 	if(count($results) == 0){	
-		return $results = array(
+		$results = array(
 			0 => array(
 					'id' =>"" ,
 					'motonave' =>"" ,
@@ -209,21 +209,22 @@ function createFormConsulDb(){
 					'ton_desc' => "")
 			);
 	}
-	else{
-		return $results;
-	}
+	
+	$results = json_decode(json_encode($results), true);
+	return $results; 
 }
 function addFieldForm(){
+	$ramdon = rand(13, 3000);
 ?>
 	<div class="row bar-unity">
     <div class="front">
         <div class="four columns">
             <label>Motonave</label>
-            <input class="u-full-width" name="one[motonave]" type="text" />
+            <input class="u-full-width" name="<?php echo $ramdon;?>[motonave]" type="text" />
         </div>
         <div class="three columns">
             <label>Muelle actual</label>
-            <select class="u-full-width" name="one[muelle]">
+            <select class="u-full-width" name="<?php echo $ramdon;?>[muelle]">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -232,7 +233,7 @@ function addFieldForm(){
         </div>
         <div class="three columns">
             <label>Orientación </label>
-            <select class="u-full-width" name="one[orientacion]">
+            <select class="u-full-width" name="<?php echo $ramdon;?>[orientacion]">
                 <option value="1">Proa</option>
                 <option value="2">Popa</option>
             </select>
@@ -245,37 +246,37 @@ function addFieldForm(){
         <div class="row">
             <div class="three columns">
                 <label>Fecha de atraque</label>
-                <input class="u-full-width" data-toggle="datepicker" id="date" name="one[date]" value="" type="text" />
+                <input class="u-full-width" data-toggle="datepicker" id="date" name="<?php echo $ramdon;?>[date]" value="" type="text" />
             </div>
             <div class="three columns">
                 <label>Agente Maritimo</label>
-                <input class="u-full-width" name="one[agente]" type="text" />
+                <input class="u-full-width" name="<?php echo $ramdon;?>[agente]" type="text" />
             </div>
             <div class="three columns">
                 <label>Clientes Principales</label>
-                <input class="u-full-width" name="one[cliente]" type="text" />
+                <input class="u-full-width" name="<?php echo $ramdon;?>[cliente]" type="text" />
             </div>
             <div class="three columns">
                 <label>Tipo de Producto</label>
-                <input class="u-full-width" name="one[producto]" type="text" />
+                <input class="u-full-width" name="<?php echo $ramdon;?>[producto]" type="text" />
             </div>
         </div>
         <div class="row">
             <div class="three columns">
                 <label>Tonelaje Anunciado</label>
-                <input class="u-full-width" id="ton" name="one[tonelaje-anun]" type="text" />
+                <input class="u-full-width" id="ton" name="<?php echo $ramdon;?>[tonelaje-anun]" type="text" />
             </div>
             <div class="three columns">
                 <label>Tonelaje Descargado</label>
-                <input class="u-full-width" id="ton" name="one[tonelaje-desc]" type="text" />
+                <input class="u-full-width" id="ton" name="<?php echo $ramdon;?>[tonelaje-desc]" type="text" />
             </div>
             <div class="three columns">
                 <label>Fecha de atraque</label>
-                <input class="u-full-width" id="date" name="one[empty]" type="text" />
+                <input class="u-full-width" id="date" name="<?php echo $ramdon;?>[empty]" type="text" />
             </div>
             <div class="three columns">
                 <label>Vacio</label>
-                <input class="u-full-width" name="one[empty]" type="text" />
+                <input class="u-full-width" name="<?php echo $ramdon;?>[empty2]" type="text" />
             </div>
         </div>
     </div>
