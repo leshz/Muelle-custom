@@ -9,12 +9,20 @@
     })
 
     $(".content-form").on("click", ".moreInfo", function(ev) {
-        var content = $(this).parents(".bar-unity")
+        
+        var content = $(this).parents(".bar-unity")   
         var subForm = content.find(".completeform")
+        $(".completeform").removeClass("actived")
+        $(".bar-unity").removeClass("actived")
+        
         if (subForm.hasClass('hiden')) {
-            subForm.addClass('actived').removeClass('hiden');
+            $(".bar-unity").addClass("blured")
+            content.removeClass("blured").addClass("actived")  
+            subForm.addClass('actived').removeClass('hiden')
         } else {
-            subForm.addClass('hiden').removeClass('actived');
+            $(".bar-unity").removeClass("blured")
+            content.removeClass("actived")
+            subForm.addClass('hiden').removeClass('actived')
         }
     })
 
@@ -52,7 +60,7 @@
         var num = $(".bar-unity").length
         console.log(num)
         if (num >= 12) {
-            alert("no pueden haber mas de 12 barcos")
+            alert("No pueden haber más de 12 barcos")
         } else {
             $.ajax({
                 type: "POST",

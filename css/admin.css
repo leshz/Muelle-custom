@@ -391,10 +391,22 @@ there.
 .row.bar-unity {
     background: white;
     padding: 10px 15px;
+    transition: opacity 0.5s ease-in-out;
+}
+label{
+    font-size: 14px;
+    font-weight: 200;
+    color:#000;
+}
+
+.bar-unity.blured{
+    opacity: 0.3;
+}
+.bar-unity.actived{
+    opacity: 1;
 }
 .completeform {
-    overflow: hidden;
-    height: 0;
+    display:none;
     transition: all 1s ease-in-out ;
 }
 
@@ -407,23 +419,39 @@ there.
 }
 
 .completeform.actived {
-    overflow:visible;
-    height: auto;
+    display: block;
 }
-button.admin.button.button-primary {
+.admin.button.button-primary {
     margin-top: 20px;
 }
 
-button.button-primary.delete {
-   background:#f44336;
+.button-primary.delete {
+    background:#f44336;
+    box-shadow: none;
+    border: none;
+    text-shadow: none;
+}
+.button-primary.moreInfo{
+        background:#1EAEDB;
     box-shadow: none;
     border: none;
     text-shadow: none;
 }
 
-button.button-primary.moreInfo {
-    background:#1EAEDB;
-    box-shadow: none;
+.button-primary.delete:hover,.button-primary.delete:focus {
+    background:#f44336;
+       box-shadow: none;
     border: none;
     text-shadow: none;
+}
+
+.button-primary.moreInfo:hover,.button-primary.moreInfo:focus {
+    background:#1EAEDB;
+       box-shadow: none;
+    border: none;
+    text-shadow: none;
+}
+
+.bar-unity:nth-child(2n){
+    background:#e5e5e5 !important;
 }
