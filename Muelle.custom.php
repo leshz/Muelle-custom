@@ -218,7 +218,6 @@ function createFormConsulDb(){
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		global $wpdb;	
 		$DelenteID=$_POST['id'];
-		
 		$table_name = $wpdb->prefix . 'muelle_status';	
 		$sql = "DELETE FROM $table_name WHERE  `id` = $DelenteID;";
 		$wpdb->query($sql);

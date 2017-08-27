@@ -30,10 +30,6 @@
 
     $("#submit").click(function(ev) {
         
-        
-     
-   
-
     })
 
     $("#addField").click(function(ev) {
@@ -63,9 +59,8 @@
                 content.remove()  
             }
             else {
-            alert("no puedes eliminar el unico campo")
-            }
-            
+                alert("no puedes eliminar el unico campo")
+            } 
         }
         else {
             $.ajax({
@@ -81,5 +76,4 @@
             })
         }     
     })
-    
 })(jQuery);
