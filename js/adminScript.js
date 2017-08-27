@@ -9,12 +9,10 @@
     })
 
     $(".content-form").on("click", ".moreInfo", function(ev) {
-        
         var content = $(this).parents(".bar-unity")   
         var subForm = content.find(".completeform")
         $(".completeform").removeClass("actived")
         $(".bar-unity").removeClass("actived")
-        
         if (subForm.hasClass('hiden')) {
             $(".bar-unity").addClass("blured")
             content.removeClass("blured").addClass("actived")  
@@ -31,6 +29,7 @@
     })
 
     $("#submit").click(function(ev) {
+        
         
      
    
@@ -53,6 +52,34 @@
     })
     
     $(".content-form").on("click", ".delete", function(ev) {
-    alert("ay no me borres :( ")
+        
+        var content = $(this).parents(".bar-unity")   
+        var subForm = content.find('input[type="hidden"]')
+        var num = $(".bar-unity").length
+        var idvalue=subForm.val()
+        
+        if(idvalue ==""){
+            if(num!==1){
+                content.remove()  
+            }
+            else {
+            alert("no puedes eliminar el unico campo")
+            }
+            
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/wp-admin/admin-ajax.php", 
+                data: {'action':'deleteField','id':idvalue},
+                    success: function(msg){
+                        console.log(msg)
+                    },
+                    error: function(msg){
+                    console.log(msg.statusText)
+                }
+            })
+        }     
     })
+    
 })(jQuery);

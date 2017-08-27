@@ -60,6 +60,7 @@ function max_length_content_page_settings(){
 					
 				 ?>
 						<div class="row bar-unity">
+						<input type="hidden"  name="<?php echo$form; ?>[id]" value="<?php echo $item['id']; ?>">
 						<div class="front">
 							<div class="four columns">
 								<label>Motonave</label>
@@ -213,78 +214,19 @@ function createFormConsulDb(){
 	$results = json_decode(json_encode($results), true);
 	return $results; 
 }
-function addFieldForm(){
-	$ramdon = rand(13, 3000);
-?>
-	<div class="row bar-unity">
-    <div class="front">
-        <div class="four columns">
-            <label>Motonave</label>
-            <input class="u-full-width" name="<?php echo $ramdon;?>[motonave]" type="text" />
-        </div>
-        <div class="three columns">
-            <label>Muelle actual</label>
-            <select class="u-full-width" name="<?php echo $ramdon;?>[muelle]">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-        </div>
-        <div class="three columns">
-            <label>Orientación </label>
-            <select class="u-full-width" name="<?php echo $ramdon;?>[orientacion]">
-                <option value="1">Proa</option>
-                <option value="2">Popa</option>
-            </select>
-        </div>
-        <div class="two columns b-section">
-            <a class="button-primary moreInfo"><span class="dashicons dashicons-plus"></span> Ver más</a>
-        </div>
-    </div>
-    <div class="completeform hiden">
-        <div class="row">
-            <div class="three columns">
-                <label>Fecha de atraque</label>
-                <input class="u-full-width" data-toggle="datepicker" id="date" name="<?php echo $ramdon;?>[date]" value="" type="text" />
-            </div>
-            <div class="three columns">
-                <label>Agente Maritimo</label>
-                <input class="u-full-width" name="<?php echo $ramdon;?>[agente]" type="text" />
-            </div>
-            <div class="three columns">
-                <label>Clientes Principales</label>
-                <input class="u-full-width" name="<?php echo $ramdon;?>[cliente]" type="text" />
-            </div>
-            <div class="three columns">
-                <label>Tipo de Producto</label>
-                <input class="u-full-width" name="<?php echo $ramdon;?>[producto]" type="text" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="three columns">
-                <label>Tonelaje Anunciado</label>
-                <input class="u-full-width" id="ton" name="<?php echo $ramdon;?>[tonelaje-anun]" type="text" />
-            </div>
-            <div class="three columns">
-                <label>Tonelaje Descargado</label>
-                <input class="u-full-width" id="ton" name="<?php echo $ramdon;?>[tonelaje-desc]" type="text" />
-            </div>
-            <div class="three columns">
-                <label>Fecha de atraque</label>
-                <input class="u-full-width" id="date" name="<?php echo $ramdon;?>[empty]" type="text" />
-            </div>
-            <div class="three columns">
-                <label>Vacio</label>
-                <input class="u-full-width" name="<?php echo $ramdon;?>[empty2]" type="text" />
-            </div>
-        </div>
-    </div>
-</div>
+	function deleteField(){
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		global $wpdb;	
+		$DelenteID=$_POST['id'];
+		
+		$table_name = $wpdb->prefix . 'muelle_status';	
+		$sql = "DELETE FROM $table_name WHERE  `id` = $DelenteID;";
+		$wpdb->query($sql);
+		return $wpdb; 
 
-<?php
-die();	
+	die();	
 }
-add_action('wp_ajax_addFieldForm', 'addFieldForm');
+
+add_action('wp_ajax_deleteField', 'deleteField');
 
 ?>
