@@ -30,6 +30,10 @@
 
     $("#submit").click(function(ev) {
         
+       $("#submit").html('')
+    
+        
+        
         
         
     })
@@ -37,7 +41,7 @@
     $("#addField").click(function(ev) {
         var num = $(".bar-unity").length
         if (num >= 12) {
-            alert("no pueden haber mas de 12 barcos")
+            alert("No pueden existir más de 12 barcos")
         } else {
             num+= 1 
             var barUnityNew= $(".bar-unity").eq(0).clone();
@@ -65,17 +69,20 @@
             } 
         }
         else {
-            $.ajax({
+            if(confirm("Seguro deseas eliminar este campo")){
+                $.ajax({
                 type: "POST",
                 url: "/wp-admin/admin-ajax.php", 
                 data: {'action':'deleteField','id':idvalue},
                     success: function(msg){
                         console.log(msg)
+                        location.reload()
                     },
                     error: function(msg){
                     console.log(msg.statusText)
-                }
-            })
+                    }
+                })
+            }   
         }     
     })
 })(jQuery);

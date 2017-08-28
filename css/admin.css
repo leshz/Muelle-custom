@@ -143,7 +143,7 @@ input[type=submit],
 input[type=reset],
 input[type=button] {
     display: inline-block;
-    height: 38px;
+    height: auto;
     padding: 0 30px;
     color: #555;
     text-align: center;
@@ -394,40 +394,63 @@ label {
 .content-form {
     margin-top: 30px;
 }
-.completeform.hiden {} .completeform.actived {
+.completeform.actived {
     display: block;
 }
-.admin.button.button-primary {
+button.admin {
     margin-top: 20px;
 }
-.button-primary.delete {
-    background: #f44336;
-    box-shadow: none;
-    border: none;
-    text-shadow: none;
+
+button.admin i {
+    font-size: 30px;
 }
-.button-primary.moreInfo {
-    background: #1EAEDB;
-    box-shadow: none;
-    border: none;
-    text-shadow: none;
+
+.button-primary {
+    box-shadow: none!important;
+    border: none!important;
+    text-shadow: none!important;
 }
-.button-primary.delete:hover,
-.button-primary.delete:focus {
-    background: #f44336;
-    box-shadow: none;
-    border: none;
-    text-shadow: none;
+.button-primary:hover , .button-primary:focus{
+    box-shadow: none!important;
+    border: none!important;
+    text-shadow: none!important;
 }
-.button-primary.moreInfo:hover,
-.button-primary.moreInfo:focus {
-    background: #1EAEDB;
-    box-shadow: none;
-    border: none;
-    text-shadow: none;
+.delete {
+    background: #f44336!important;
+}
+.moreInfo {
+    background: #1EAEDB!important;
+}
+.delete:hover,
+.delete:focus {
+    background: #da4d43!important;
+}
+.moreInfo:hover,
+.moreInfo:focus {
+    background: #1986a9!important;
+
 }
 .bar-unity:nth-child(2n) {
     background: #e5e5e5 !important;
+}
+
+button.admin.bubble {
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    border-radius: 50%;
+    transition: width 0.3s, height 0.3s ease-in-out;
+}
+
+button.admin.bubble:hover {
+    width: 60px;
+    height: 60px;
+}
+
+button.admin.bubble i {
+    font-size: 16px;
 }
 /*!
  * Datepicker v0.5.3
