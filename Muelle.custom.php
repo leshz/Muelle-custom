@@ -13,28 +13,57 @@
 * Función para añadir una página al menú de administrador de wordpress
 */
 
-//require_once('form_submit.php');
-
-
 
 function mapEdit_plugin_menu(){
-	//Añade una página de menú a wordpress
 	add_menu_page(	'Tiempo Real Muelle',				//Título de la página
 					'Muelle',							//Título del menú
 					'administrator',					//Rol que puede acceder
-				  	'max-length-content-settings',		//Id de la página de opciones
-				  	'max_length_content_page_settings',	//Función que pinta la página de configuración del plugin
+				  	'muelle_form_settings-page',		//Id de la página de opciones
+				  	'muelle_form_settings',	//Función que pinta la página de configuración del plugin
 				  	'dashicons-admin-site');			//Icono del menú
 }
 add_action('admin_menu','mapEdit_plugin_menu');
 
-/*
-* Función que pinta la página de configuración del plugin
-*/
+register_activation_hook( __FILE__, 'installDB' );
+ 
+function installDB () {
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	global $wpdb;
 
-function max_length_content_page_settings(){
+	$table_name = $wpdb->prefix . 'muelle_status';	
 	
-	installDB();		
+	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name){
+		$charset_collate = $wpdb->get_charset_collate();
+		$sql = "CREATE TABLE $table_name (`id` int(11) NOT NULL,
+		  `motonave` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+		  `muelle_actual` int(11) NOT NULL,
+		  `orientacion` int(11) NOT NULL,
+		  `fecha_atrac` date NOT NULL,
+		  `agente` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+		  `client_princp` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+		  `producto` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+		  `ton_anun` int(11) DEFAULT NULL,
+		  `ton_desc` int(11) DEFAULT NULL ) $charset_collate;";
+		dbDelta( $sql );
+		$sql = "ALTER TABLE $table_name ADD PRIMARY KEY (`id`);";
+		$wpdb->query($sql);
+		$sql = "ALTER TABLE $table_name MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
+		$wpdb->query($sql);
+	}
+}
+
+register_deactivation_hook(__FILE__, 'remove_tables' );
+ 
+function remove_tables(){
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'muelle_status';
+    $sql = "DROP table IF EXISTS $table_name";
+	$wpdb->query($sql);
+}
+
+
+
+function muelle_form_settings(){
 	
 	wp_enqueue_style( $handle="ccsAdmin",  $src = '/wp-content/plugins/Muelle-custom/css/admin.css');
 	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/js/mask.js');
@@ -42,14 +71,13 @@ function max_length_content_page_settings(){
 	wp_enqueue_script( $handle="jsAdmin" , $src= '/wp-content/plugins/Muelle-custom/js/adminScript.js');
 	$resultado = createFormConsulDb();
 
-	
-
 ?>
 <div class="twelve columns">
 	<div class="wrap">
 		<div class="muelle-form">
 			<h1>Editor Muelle</h1>
-			<form method="POST"id="adminInfo" action="<?php echo admin_url( 'admin.php' ); ?>" >
+			<form method="POST" id="adminInfo" action="<?php echo admin_url( 'admin-post.php' ) ;?> " >
+			<input type="hidden" name="action" value="process_form">
 				<div class="content-form">
 				
 				<?php 
@@ -138,8 +166,9 @@ function max_length_content_page_settings(){
 				<?php } ?>
 				</div>
 				<div class="row">
+				
 					<div class="three columns">
-						<button type="button" class="admin button button-primary" id="submit" ><i class="fa fa-bath" aria-hidden="true"></i> Salvar</button>
+						<button type="submit" class="admin button button-primary" id="submit" ><i class="fa fa-bath" aria-hidden="true"></i> Salvar</button>
 					</div>
 					<div class="three columns">
 						<button id="addField" type="button"class="admin button button-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Campo</button>
@@ -152,31 +181,6 @@ function max_length_content_page_settings(){
 <?php
 }
 	
-function installDB () {
-	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-	global $wpdb;
-
-	$table_name = $wpdb->prefix . 'muelle_status';	
-	
-	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name){
-		$charset_collate = $wpdb->get_charset_collate();
-		$sql = "CREATE TABLE $table_name (`id` int(11) NOT NULL,
-		  `motonave` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-		  `muelle_actual` int(11) NOT NULL,
-		  `orientacion` int(11) NOT NULL,
-		  `fecha_atrac` date NOT NULL,
-		  `agente` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-		  `client_princp` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-		  `producto` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-		  `ton_anun` int(11) DEFAULT NULL,
-		  `ton_desc` int(11) DEFAULT NULL ) $charset_collate;";
-		dbDelta( $sql );
-		$sql = "ALTER TABLE $table_name ADD PRIMARY KEY (`id`);";
-		$wpdb->query($sql);
-		$sql = "ALTER TABLE $table_name MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
-		$wpdb->query($sql);
-	}
-}
 
 function createFormConsulDb(){
 	global $wpdb;
@@ -196,11 +200,11 @@ function createFormConsulDb(){
 					'ton_desc' => "")
 			);
 	}
-	
 	$results = json_decode(json_encode($results), true);
 	return $results; 
 }
-	function deleteField(){
+
+function deleteField(){
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		global $wpdb;	
 		$DelenteID=$_POST['id'];
@@ -208,30 +212,55 @@ function createFormConsulDb(){
 		$sql = "DELETE FROM $table_name WHERE  `id` = $DelenteID;";
 		$wpdb->query($sql);
 		return $wpdb; 
-
 	die();	
 }
 
 add_action('wp_ajax_deleteField', 'deleteField');
 
 
+// 
 
-function saveForm(){
-		echo "<pre>";
-		print_r($_POST);
-		echo"</pre>";
 
-	die();	
+//add_action( 'admin_post_nopriv_process_form', 'process_form_data' );
+add_action( 'admin_post_process_form', 'process_form_data' );
+
+function process_form_data() {
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'muelle_status';	 
+	$formInfo = $_POST;
+	unset($formInfo['action']);
+	foreach ($formInfo as $item => $info) {
+		
+		if($info['id'] != ""){
+			$wpdb-> update ($table_name, array(
+									
+										'motonave'=>$info['motonave'],
+										'muelle_actual'=>$info['muelle'],
+										'orientacion'=>$info['orientacion'],
+										'fecha_atrac'=>$info['date'],
+										'agente'=>$info['agente'],
+										'client_princp'=>$info['cliente'],
+										'producto'=>$info['producto'],
+										'ton_anun'=>$info['tonelaje-anun'],
+										'ton_desc'=>$info['tonelaje-desc']	
+										),
+										array('id'=>$info['id']) );
+		}
+		else{
+			$wpdb->insert($table_name, array(
+										'motonave'=>$info['motonave'],
+										'muelle_actual'=>$info['muelle'],
+										'orientacion'=>$info['orientacion'],
+										'fecha_atrac'=>$info['date'],
+										'agente'=>$info['agente'],
+										'client_princp'=>$info['cliente'],
+										'producto'=>$info['producto'],
+										'ton_anun'=>$info['tonelaje-anun'],
+										'ton_desc'=>$info['tonelaje-desc']	
+										));
+		}	
+}	
+	wp_redirect( $_SERVER['HTTP_REFERER'] );
 }
-
-add_action('wp_ajax_saveForm', 'saveForm');
-
-
-
-
-
-
-
-
 
 ?>

@@ -4,7 +4,7 @@
         $.fn.datepicker.setDefaults({ startDate: true, language: 'es-ES', format: 'd-mm-yyyy' })
         var formAdmin = $('.muelle-form')
         formAdmin.find('#date').mask('00/00/0000')
-        formAdmin.find('#ton').mask('000.000.000.000.000', { reverse: true })
+        formAdmin.find('#ton').mask('000.000.000.000', { reverse: true })
         $('[data-toggle="datepicker"]').datepicker()
     })
 
@@ -30,23 +30,8 @@
 
     $("#submit").click(function(ev) {
         
-        $("·adminInfo").ajaxForm({
-                type: "POST",
-                url: "/wp-admin/admin-ajax.php", 
-                data: {'action':'saveForm'},
-                    success: function(msg){
-                        console.log(msg)
-                    },
-                    error: function(msg){
-                    console.log(msg.statusText)
-                }
-            })
-    
-
-
-       
-
-       
+        
+        
     })
 
     $("#addField").click(function(ev) {
