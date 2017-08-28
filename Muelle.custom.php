@@ -31,13 +31,12 @@ add_action('admin_menu','mapEdit_plugin_menu');
 /*
 * Función que pinta la página de configuración del plugin
 */
+
 function max_length_content_page_settings(){
 	
 	installDB();		
 	
 	wp_enqueue_style( $handle="ccsAdmin",  $src = '/wp-content/plugins/Muelle-custom/css/admin.css');
-	wp_enqueue_style( $handle="icons",  $src = '/wp-content/plugins/Muelle-custom/css/font-awesome.min.css');
-	wp_enqueue_style( $handle="cssDatepicker",  $src = '/wp-content/plugins/Muelle-custom/css/datetimepicker.css');
 	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/js/mask.js');
 	wp_enqueue_script( $handle="datepicker" , $src= '/wp-content/plugins/Muelle-custom/js/datetimepicker.min.js');
 	wp_enqueue_script( $handle="jsAdmin" , $src= '/wp-content/plugins/Muelle-custom/js/adminScript.js');
@@ -50,7 +49,7 @@ function max_length_content_page_settings(){
 	<div class="wrap">
 		<div class="muelle-form">
 			<h1>Editor Muelle</h1>
-			<form method="POST"id="adminInfo" action="<?php  echo (plugin_dir_url(__FILE__) ."form_submit.php"); ?>" >
+			<form method="POST"id="adminInfo" action="<?php echo admin_url( 'admin.php' ); ?>" >
 				<div class="content-form">
 				
 				<?php 
@@ -140,7 +139,7 @@ function max_length_content_page_settings(){
 				</div>
 				<div class="row">
 					<div class="three columns">
-						<button type="submit" class="admin button button-primary" id="submit" ><i class="fa fa-bath" aria-hidden="true"></i> Salvar</button>
+						<button type="button" class="admin button button-primary" id="submit" ><i class="fa fa-bath" aria-hidden="true"></i> Salvar</button>
 					</div>
 					<div class="three columns">
 						<button id="addField" type="button"class="admin button button-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Campo</button>
@@ -152,19 +151,6 @@ function max_length_content_page_settings(){
 </div>	
 <?php
 }
-function max_length_action($content){
-	global $post;
-	//Comprobamos que sea un post y no estemos visualizando su vista individual
-	if ($post && $post->post_type=='post' && !is_singular('post')){
-		//Recuperamos el valor del parámetro conasa_max_length_value
-		$len = get_option('max_length_value');
-		$content = mb_substr($content, 3, $len);
-	}
-
-	return $content;
-}
-add_filter('the_content','max_length_action');
-
 	
 function installDB () {
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -227,5 +213,25 @@ function createFormConsulDb(){
 }
 
 add_action('wp_ajax_deleteField', 'deleteField');
+
+
+
+function saveForm(){
+		echo "<pre>";
+		print_r($_POST);
+		echo"</pre>";
+
+	die();	
+}
+
+add_action('wp_ajax_saveForm', 'saveForm');
+
+
+
+
+
+
+
+
 
 ?>

@@ -30,6 +30,23 @@
 
     $("#submit").click(function(ev) {
         
+        $("·adminInfo").ajaxForm({
+                type: "POST",
+                url: "/wp-admin/admin-ajax.php", 
+                data: {'action':'saveForm'},
+                    success: function(msg){
+                        console.log(msg)
+                    },
+                    error: function(msg){
+                    console.log(msg.statusText)
+                }
+            })
+    
+
+
+       
+
+       
     })
 
     $("#addField").click(function(ev) {
