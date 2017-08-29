@@ -165,12 +165,12 @@ function muelle_form_settings(){
 					</div>						
 				<?php } ?>
 				</div>
-				<div class="row">
+				<div class="row buttons-section">
 				
 					<div class="three columns">
-						<button type="submit" class="admin button button-primary" id="submit" ><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span></button>
+						<button type="submit" class="admin button button-primary submitbutton" id="submit" ><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;Guardar</button>
 					</div>
-					<div class="three columns">
+					<div class="three columns special">
 						<button id="addField" type="button"class="admin button button-primary bubble"><i class="fa fa-plus" aria-hidden="true"></i></button>
 					</div>
 				</div>

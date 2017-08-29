@@ -452,6 +452,32 @@ button.admin.bubble:hover {
 button.admin.bubble i {
     font-size: 16px;
 }
+
+.admin.submitbutton{
+    margin: 0px;
+    line-height: 0;
+    position: relative;
+    padding: 9px 20px 16px 20px;
+    text-transform: capitalize;
+    
+}
+.admin.submitbutton i{
+   position: relative;
+    font-size: 25px;
+    top: 4px;
+    left: 0;
+}
+
+.buttons-section{
+    margin:20px 0;
+}
+
+.three.columns.special {
+    text-align: right !important;
+    float: right !important;
+}
+
+
 /*!
  * Datepicker v0.5.3
  * https://github.com/fengyuanchen/datepicker

@@ -30,7 +30,7 @@
 
     $("#submit").click(function(ev) {
         
-       $("#submit").html('')
+       $("#submit").html('<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>&nbsp;&nbsp;Guardando..')
     
         
         
