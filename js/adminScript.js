@@ -1,7 +1,7 @@
 (function($) {
 
     $(document).ready(function() {
-        $.fn.datepicker.setDefaults({ startDate: true, language: 'es-ES', format: 'd-mm-yyyy' })
+        $.fn.datepicker.setDefaults({ startDate: true, language: 'es-ES', format: 'dd/mm/yyyy' })
         var formAdmin = $('.muelle-form')
         formAdmin.find('#date').mask('00/00/0000')
         formAdmin.find('#ton').mask('000.000.000.000', { reverse: true })

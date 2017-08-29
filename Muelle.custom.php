@@ -38,7 +38,7 @@ function installDB () {
 		  `motonave` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
 		  `muelle_actual` int(11) NOT NULL,
 		  `orientacion` int(11) NOT NULL,
-		  `fecha_atrac` date NOT NULL,
+		  `fecha_atrac` varchar(11) COLLATE utf8_spanish_ci NOT NULL,
 		  `agente` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
 		  `client_princp` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
 		  `producto` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
@@ -119,15 +119,7 @@ function muelle_form_settings(){
 							<div class="row">
 								<div class="three columns">
 									<label>Fecha de atraque</label>
-								<input class="u-full-width" data-toggle="datepicker" id="date" name="<?php echo$form; ?>[date]" value="<?php 
-								if($item['fecha_atrac']==""){
-									echo $item['fecha_atrac'];
-								}else{
-									$dateclear= strtotime($item['fecha_atrac']); 
-									$dateformat = date( 'd-m-Y H:i:s', $dateclear );  
-									echo $dateformat;
-									}
-								?>" type="text" />
+								<input class="u-full-width" data-toggle="datepicker" id="date" name="<?php echo$form; ?>[date]" value="<?php echo $item['fecha_atrac'];?>" type="text" />
 								</div>
 								<div class="three columns">
 									<label>Agente Maritimo</label>
@@ -229,6 +221,13 @@ function process_form_data() {
 	$table_name = $wpdb->prefix . 'muelle_status';	 
 	$formInfo = $_POST;
 	unset($formInfo['action']);
+//	echo "<pre>" ;
+//	print_r($formInfo);
+//	echo "</pre>" ;
+	
+
+	//$newDate = date("d-m-Y", strtotime($originalDate));
+	//	die;
 	foreach ($formInfo as $item => $info) {
 		
 		if($info['id'] != ""){
