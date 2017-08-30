@@ -40,6 +40,9 @@
     .two.columns {
         width: 13.3333333333%
     }
+    .two-haf.columns{
+        width:16%;
+    }
     .three.columns {
         width: 22%
     }
@@ -373,7 +376,7 @@ there.
 }
 .row.bar-unity {
     background: white;
-    padding: 10px 15px;
+    padding: 20px 0px 15px 30px;
     transition: opacity 0.5s ease-in-out;
 }
 label {
@@ -390,6 +393,7 @@ label {
 .completeform {
     display: none;
     transition: all 1s ease-in-out;
+    margin: 20px 15px 0 0px;
 }
 .content-form {
     margin-top: 30px;
@@ -476,7 +480,9 @@ button.admin.bubble i {
     text-align: right !important;
     float: right !important;
 }
-
+.front {
+    overflow: hidden;
+}
 
 /*!
  * Datepicker v0.5.3

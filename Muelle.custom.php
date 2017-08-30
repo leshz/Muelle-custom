@@ -34,20 +34,25 @@ function installDB () {
 	
 	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name){
 		$charset_collate = $wpdb->get_charset_collate();
-		$sql = "CREATE TABLE $table_name (`id` int(11) NOT NULL,
+		$sql = "CREATE TABLE $table_name (`id` int(3) NOT NULL,
 		  `motonave` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-		  `muelle_actual` int(11) NOT NULL,
-		  `orientacion` int(11) NOT NULL,
-		  `fecha_atrac` varchar(11) COLLATE utf8_spanish_ci NOT NULL,
-		  `agente` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-		  `client_princp` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-		  `producto` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-		  `ton_anun` int(11) DEFAULT NULL,
-		  `ton_desc` int(11) DEFAULT NULL ) $charset_collate;";
+		  `muelle_actual` int(11) DEFAULT NULL,
+		  `orientacion` int(11) DEFAULT NULL,
+		  `fecha_atrac` varchar(11) COLLATE utf8_spanish_ci DEFAULT NULL,
+		  `hora` varchar(8) COLLATE utf8_spanish_ci DEFAULT NULL,
+		  `agente` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+		  `client_princp` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+		  `producto` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+	      `eslora` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+	      `calado` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL, 
+		  `ton_anun` int(20) DEFAULT NULL,
+		  `ton_desc` int(20) DEFAULT NULL ,
+		  `ton_acum` int(20) DEFAULT NULL,
+		  `sal-motonave` int(20) DEFAULT NULL) $charset_collate;";
 		dbDelta( $sql );
 		$sql = "ALTER TABLE $table_name ADD PRIMARY KEY (`id`);";
 		$wpdb->query($sql);
-		$sql = "ALTER TABLE $table_name MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
+		$sql = "ALTER TABLE $table_name MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;";
 		$wpdb->query($sql);
 	}
 }
@@ -93,23 +98,35 @@ function muelle_form_settings(){
 								<label>Motonave</label>
 								<input class="u-full-width" name="<?php echo$form; ?>[motonave]" value="<?php echo $item['motonave']; ?>" type="text" />
 							</div>
-							<div class="three columns">
-								<label>Muelle actual</label>
+							<div class="two columns">
+								<label>Muelle</label>
 								<select class="u-full-width" name="<?php echo$form; ?>[muelle]"  value="<?php echo $item['muelle_actual']; ?>">
 									<option value="1">1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
 									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>									
 								</select>
 							</div>
-							<div class="three columns">
-							<label>Orientación </label>
+							<div class="two columns">
+								<label>Atracado</label>
 								<select class="u-full-width" name="<?php echo$form; ?>[orientacion]" >
-									<option value="1">Proa</option>
-									<option value="2">Popa</option>
+									<option value="1">Babor <-- </option>
+									<option value="2">Estribor --> </option>
 								</select>
 								
 							</div>
+							<div class="two columns">
+									<label>Fecha de atraque</label>
+									<input class="u-full-width" data-toggle="datepicker" id="date" name="<?php echo$form; ?>[date]" value="<?php echo $item['fecha_atrac'];?>" type="text" />
+								</div>
 							<div class="two columns b-section" >
 								<button type="button" class="button-primary moreInfo"><i class="fa fa-plus" aria-hidden="true"></i></button>
 								<button type="button" class="button-primary delete"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -117,40 +134,50 @@ function muelle_form_settings(){
 						</div>
 						<div class="completeform hiden">
 							<div class="row">
-								<div class="three columns">
-									<label>Fecha de atraque</label>
-								<input class="u-full-width" data-toggle="datepicker" id="date" name="<?php echo$form; ?>[date]" value="<?php echo $item['fecha_atrac'];?>" type="text" />
+								
+								<div class="two-haf columns">
+									<label>Hora de atraque </label>
+									<input class="u-full-width" name="<?php echo$form; ?>[hora]" value="<?php echo $item['hora']; ?>"type="text" />
 								</div>
-								<div class="three columns">
+								<div class="two-haf columns">
 									<label>Agente Maritimo</label>
 									<input class="u-full-width" name="<?php echo$form; ?>[agente]" value="<?php echo $item['agente']; ?>"type="text" />
 								</div>
-								<div class="three columns">
+								<div class="two-haf columns">
 									<label>Clientes Principales</label>
 									<input class="u-full-width" name="<?php echo$form; ?>[cliente]" type="text"  value="<?php echo $item['client_princp']; ?>"/>
 								</div>
-								<div class="three columns">
-									<label>Tipo de Producto</label>
+								<div class="two-haf columns">
+									<label>Producto</label>
 									<input class="u-full-width" name="<?php echo$form; ?>[producto]" type="text" value="<?php echo $item['producto']; ?>" />
 								</div>
+								<div class="two-haf columns">
+									<label>Eslora</label>
+									<input class="u-full-width" name="<?php echo$form; ?>[eslora]" type="text" value="<?php echo $item['eslora']; ?>" />
+								</div>
+							
 							
 							</div>
 							<div class="row">
-									<div class="three columns">
+								<div class="two-haf columns">
+									<label>Calado</label>
+									<input class="u-full-width" name="<?php echo $form; ?>[calado]"type="text"  value="<?php echo $item['calado']; ?>"  />
+								</div>
+								<div class="two-haf columns">
 									<label>Tonelaje Anunciado</label>
-									<input class="u-full-width" id="ton" name="<?php echo$form; ?>[tonelaje-anun]" type="text" value="<?php echo $item['ton_anun']; ?>" />
+									<input class="u-full-width" id="ton" name="<?php echo $form; ?>[tonelaje-anun]" type="text" value="<?php echo $item['ton_anun']; ?>" />
 								</div>
-								<div class="three columns">
+								<div class="two-haf columns">
 									<label>Tonelaje Descargado</label>
-									<input class="u-full-width"  id="ton"name="<?php echo$form; ?>[tonelaje-desc]" type="text" value="<?php echo $item['ton_desc']; ?>" />
+									<input class="u-full-width"  id="ton"name="<?php echo $form; ?>[tonelaje-desc]" type="text" value="<?php echo $item['ton_desc']; ?>" />
 								</div>
-								<div class="three columns">
-									<label>Fecha de atraque</label>
-								<input class="u-full-width" id="date"name="<?php echo$form; ?>[empty]" type="text" />
+								<div class="two-haf columns">
+									<label>Tonelaje Acumulado</label>
+								<input class="u-full-width" id="ton" name="<?php echo $form; ?>[tonelaje-acum]" type="text" value="<?php echo $item['ton_acum']; ?>" />
 								</div>
-								<div class="three columns">
-									<label>Vacio</label>
-									<input class="u-full-width" name="<?php echo$form; ?>[empty2]"type="text"  />
+								<div class="two-haf columns">
+									<label>Saldo Motonave</label>
+									<input class="u-full-width" name="<?php echo $form; ?>[sal-motonave]"type="text" value="<?php echo $item['sal-motonave']; ?>" />
 								</div>
 							</div>
 						</div>
@@ -182,14 +209,20 @@ function createFormConsulDb(){
 			0 => array(
 					'id' =>"" ,
 					'motonave' =>"" ,
-					'muelle_actual'=>"" ,
+					'muelle_actual'=>"",
 					'orientacion' =>"" ,
 					'fecha_atrac' =>"" ,
+					'hora'	=>	"",
 					'agente' =>"" ,
 					'client_princp' =>"" ,
 					'producto' =>"" ,
+					'eslora' => "",
+					'calado' => "",
 					'ton_anun' =>"" ,
-					'ton_desc' => "")
+					'ton_desc' => "",
+					'ton_acum' => "",
+					'sal-motonave'=>""
+					)
 			);
 	}
 	$results = json_decode(json_encode($results), true);
@@ -237,11 +270,16 @@ function process_form_data() {
 										'muelle_actual'=>$info['muelle'],
 										'orientacion'=>$info['orientacion'],
 										'fecha_atrac'=>$info['date'],
+										'hora'=>$info['hora'],
 										'agente'=>$info['agente'],
 										'client_princp'=>$info['cliente'],
 										'producto'=>$info['producto'],
+										'eslora'=>$info['eslora'],
+										'calado'=>$info['calado'],
 										'ton_anun'=>$info['tonelaje-anun'],
-										'ton_desc'=>$info['tonelaje-desc']	
+										'ton_desc'=>$info['tonelaje-desc'],
+										'ton_acum'=>$info['tonelaje-acum'],
+										'sal-motonave'=>$info['sal-motonave']										
 										),
 										array('id'=>$info['id']) );
 		}
@@ -251,11 +289,16 @@ function process_form_data() {
 										'muelle_actual'=>$info['muelle'],
 										'orientacion'=>$info['orientacion'],
 										'fecha_atrac'=>$info['date'],
+										'hora'=>$info['hora'],
 										'agente'=>$info['agente'],
 										'client_princp'=>$info['cliente'],
 										'producto'=>$info['producto'],
+										'eslora'=>$info['eslora'],
+										'calado'=>$info['calado'],
 										'ton_anun'=>$info['tonelaje-anun'],
-										'ton_desc'=>$info['tonelaje-desc']	
+										'ton_desc'=>$info['tonelaje-desc'],
+										'ton_acum'=>$info['tonelaje-acum'],
+										'sal-motonave'=>$info['sal-motonave']	
 										));
 		}	
 }	
