@@ -73,6 +73,7 @@ function muelle_form_settings(){
 	wp_enqueue_style( $handle="ccsAdmin",  $src = '/wp-content/plugins/Muelle-custom/css/admin.css');
 	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/js/mask.js');
 	wp_enqueue_script( $handle="datepicker" , $src= '/wp-content/plugins/Muelle-custom/js/datetimepicker.min.js');
+	wp_enqueue_script( $handle="timepicker" , $src= '/wp-content/plugins/Muelle-custom/js/wickedpicker.js');
 	wp_enqueue_script( $handle="jsAdmin" , $src= '/wp-content/plugins/Muelle-custom/js/adminScript.js');
 	$resultado = createFormConsulDb();
 
@@ -96,30 +97,36 @@ function muelle_form_settings(){
 						<div class="front">
 							<div class="four columns">
 								<label>Motonave</label>
-								<input class="u-full-width" name="<?php echo$form; ?>[motonave]" value="<?php echo $item['motonave']; ?>" type="text" />
+								<input class="u-full-width" name="<?php echo$form; ?>[motonave]" value="<?php echo $item['motonave']; ?>" type="text"  required/>
 							</div>
 							<div class="two columns">
 								<label>Muelle</label>
 								<select class="u-full-width" name="<?php echo$form; ?>[muelle]"  value="<?php echo $item['muelle_actual']; ?>">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-									<option value="9">9</option>
-									<option value="10">10</option>
-									<option value="11">11</option>
-									<option value="12">12</option>									
+								<?php 
+								for($i=1;$i <= 12 ; $i++){
+									if($item['muelle_actual']==$i){
+										echo "<option value='$i' selected>$i</option>";		
+									}else{
+										echo "<option value='$i'>$i</option>";
+									}
+								} ?>								
 								</select>
 							</div>
 							<div class="two columns">
 								<label>Atracado</label>
 								<select class="u-full-width" name="<?php echo$form; ?>[orientacion]" >
-									<option value="1">Babor <-- </option>
-									<option value="2">Estribor --> </option>
+								<?php 
+									if($item['orientacion']==1){
+										echo "<option value='1' selected>Babor <-- </option>";
+										echo "<option value='2'>Estribor --> </option>";
+									}elseif($item['orientacion']==2){
+										echo "<option value='1'>Babor <-- </option>";
+										echo "<option value='2' selected>Estribor --> </option>";
+									}else{
+										echo "<option value='1'>Babor <-- </option>";
+										echo "<option value='2'>Estribor --> </option>";										
+									}
+								?>
 								</select>
 								
 							</div>
@@ -137,7 +144,7 @@ function muelle_form_settings(){
 								
 								<div class="two-haf columns">
 									<label>Hora de atraque </label>
-									<input class="u-full-width" name="<?php echo$form; ?>[hora]" value="<?php echo $item['hora']; ?>"type="text" />
+									<input class="u-full-width" id="time" name="<?php echo$form; ?>[hora]" value="<?php echo $item['hora']; ?>"type="text" />
 								</div>
 								<div class="two-haf columns">
 									<label>Agente Maritimo</label>
@@ -243,7 +250,10 @@ function deleteField(){
 add_action('wp_ajax_deleteField', 'deleteField');
 
 
-// 
+function limpiarString($texto) {
+    $textoLimpio = preg_replace('([^0-9])', '', $texto);
+    return $textoLimpio;
+}
 
 
 //add_action( 'admin_post_nopriv_process_form', 'process_form_data' );
@@ -254,13 +264,6 @@ function process_form_data() {
 	$table_name = $wpdb->prefix . 'muelle_status';	 
 	$formInfo = $_POST;
 	unset($formInfo['action']);
-//	echo "<pre>" ;
-//	print_r($formInfo);
-//	echo "</pre>" ;
-	
-
-	//$newDate = date("d-m-Y", strtotime($originalDate));
-	//	die;
 	foreach ($formInfo as $item => $info) {
 		
 		if($info['id'] != ""){
@@ -276,9 +279,9 @@ function process_form_data() {
 										'producto'=>$info['producto'],
 										'eslora'=>$info['eslora'],
 										'calado'=>$info['calado'],
-										'ton_anun'=>$info['tonelaje-anun'],
-										'ton_desc'=>$info['tonelaje-desc'],
-										'ton_acum'=>$info['tonelaje-acum'],
+										'ton_anun'=>limpiarString($info['tonelaje-anun']),
+										'ton_desc'=>limpiarString($info['tonelaje-desc']),
+										'ton_acum'=>limpiarString($info['tonelaje-acum']),
 										'sal-motonave'=>$info['sal-motonave']										
 										),
 										array('id'=>$info['id']) );
@@ -295,9 +298,9 @@ function process_form_data() {
 										'producto'=>$info['producto'],
 										'eslora'=>$info['eslora'],
 										'calado'=>$info['calado'],
-										'ton_anun'=>$info['tonelaje-anun'],
-										'ton_desc'=>$info['tonelaje-desc'],
-										'ton_acum'=>$info['tonelaje-acum'],
+										'ton_anun'=>limpiarString($info['tonelaje-anun']),
+										'ton_desc'=>limpiarString($info['tonelaje-desc']),
+										'ton_acum'=>limpiarString($info['tonelaje-acum']),
 										'sal-motonave'=>$info['sal-motonave']	
 										));
 		}	
