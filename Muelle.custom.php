@@ -144,7 +144,7 @@ function muelle_form_settings(){
 								
 								<div class="two-haf columns">
 									<label>Hora de atraque </label>
-									<input class="u-full-width" id="time" name="<?php echo$form; ?>[hora]" value="<?php echo $item['hora']; ?>"type="text" />
+									<input class="u-full-width" type="text"  id="time" name="<?php echo$form; ?>[hora]" value="<?php echo $item['hora']; ?>" />
 								</div>
 								<div class="two-haf columns">
 									<label>Agente Maritimo</label>
