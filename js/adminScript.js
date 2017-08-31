@@ -28,15 +28,15 @@
     $(".content-form").on("focus","#date",function (){
      $('[data-toggle="datepicker"]').datepicker()    
     })
-
-    $("#submit").click(function(ev) {
-        
-       $("#submit").html('<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>&nbsp;&nbsp;Guardando..')
     
+    $(".content-form").on("focus","#time",function (){
+        $("#time").timepicki()
+    })
+    
+    $("#submit").click(function(ev) {
+            
         
-        
-        
-        
+        $("#submit").html('<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>&nbsp;&nbsp;Guardando..')    
     })
 
     $("#addField").click(function(ev) {
@@ -51,6 +51,7 @@
             });
             barUnityNew.find('input,select').val("")
             $('.content-form').append(barUnityNew);
+            $(".timepickband").timepicki()
         }
     })
     
