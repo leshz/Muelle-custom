@@ -97,11 +97,12 @@ function muelle_form_settings(){
 						<div class="front">
 							<div class="four columns">
 								<label>Motonave</label>
-								<input class="u-full-width" name="<?php echo$form; ?>[motonave]" value="<?php echo $item['motonave']; ?>" type="text"  required/>
+								<input class="u-full-width motonave" name="<?php echo$form; ?>[motonave]" value="<?php echo $item['motonave']; ?>" type="text" required />
 							</div>
 							<div class="two columns">
 								<label>Muelle</label>
 								<select class="u-full-width" name="<?php echo$form; ?>[muelle]"  value="<?php echo $item['muelle_actual']; ?>">
+								<option value=""></option>
 								<?php 
 								for($i=1;$i <= 12 ; $i++){
 									if($item['muelle_actual']==$i){
@@ -115,6 +116,7 @@ function muelle_form_settings(){
 							<div class="two columns">
 								<label>Atracado</label>
 								<select class="u-full-width" name="<?php echo$form; ?>[orientacion]" >
+								<option value=""></option>
 								<?php 
 									if($item['orientacion']==1){
 										echo "<option value='1' selected>Babor <-- </option>";

@@ -6,7 +6,7 @@
         formAdmin.find('#date').mask('00/00/0000')
         formAdmin.find('#ton').mask('000.000.000.000', { reverse: true })
         $('[data-toggle="datepicker"]').datepicker()
-        $("#time").timepicki();
+        $(".timepickband").timepicki()
     })
 
     $(".content-form").on("click", ".moreInfo", function(ev) {
@@ -33,10 +33,14 @@
         $("#time").timepicki()
     })
     
-    $("#submit").click(function(ev) {
-            
+    $("#submit").click(function(ev) {       
+        var form =  $(".motonave")
+        var check = checkCampos(form)
         
-        $("#submit").html('<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>&nbsp;&nbsp;Guardando..')    
+        if(check){
+            $("#submit").html('<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>&nbsp;&nbsp;Guardando..')
+            $("#adminInfo").submit()
+        }
     })
 
     $("#addField").click(function(ev) {
@@ -54,6 +58,24 @@
             $(".timepickband").timepicki()
         }
     })
+    
+    function checkCampos(obj) {
+        var camposRellenados = true;
+        obj.each(function() {
+        var $this = $(this);
+                if( $this.val().length <= 0 ) {
+                    $this.addClass("error")
+                    camposRellenados = false;
+                    return false;
+                }
+        });
+        if(camposRellenados == false) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     
     $(".content-form").on("click", ".delete", function(ev) {
         

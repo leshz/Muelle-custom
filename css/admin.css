@@ -3061,7 +3061,7 @@ Author: senthil
 	border: 1px solid #ccc;
 	float: left;
 	position: absolute;
-	top: 27px;
+	top: 38px;
 	left: 0;
     width: 245px;
 }
@@ -3088,4 +3088,8 @@ a.reset_time {
 	float: left;
 	margin-top: 5px;
 	color: #000;
+}
+
+input.motonave.error {
+    border: 1px solid red;
 }
