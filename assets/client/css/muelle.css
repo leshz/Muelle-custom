@@ -1,0 +1,97 @@
+.container_muelle{ 
+    width: 100%;
+    height: auto;
+    max-width: 1000px;
+}
+.muelle_back{
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.muelle_back img { 
+    width: 100%;
+    display: block;
+}
+.battleship {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+.ship{
+    width: 50px;
+    height: 20px;
+    background-color: red;
+    position: absolute; 
+}
+
+.battleship .ship.muelle0 {
+    top: 5%;
+    left: 5%;
+}
+.battleship .ship.muelle1 {
+    top: 23%;
+    left: 6%;
+    transform: rotate(-5deg);
+}
+.battleship .ship.muelle2 {
+    top: 22%;
+    left: 13%;
+    transform: rotate(-5deg);
+
+}
+.battleship .ship.muelle3 {
+    top: 21%;
+    left: 20%;
+    transform: rotate(-5deg);
+}
+.battleship .ship.muelle4 {
+    top: 20.2%;
+    left: 26.5%;
+    transform: rotate(-5deg);
+}
+.battleship .ship.muelle5 {
+    top: 19.4%;
+    left: 33.1%;
+    transform: rotate(-5deg);
+}
+.battleship .ship.muelle6 {
+    top: 18.5%;
+    left: 40%;
+    transform: rotate(-5deg);
+}
+.battleship .ship.muelle7 {
+    top: 22%;
+    left: 13%;
+    transform: rotate(-5deg);
+}
+.battleship .ship.muelle8 {
+    top: 22%;
+    left: 13%;
+    transform: rotate(-5deg);
+}
+.battleship .ship.muelle9 {
+     top: 22%;
+    left: 13%;
+    transform: rotate(-5deg);
+}
+.battleship .ship.muelle10 {
+     top: 22%;
+    left: 13%;
+    transform: rotate(-5deg);
+}
+.battleship .ship.muelle11 {
+     top: 22%;
+    left: 13%;
+    transform: rotate(-5deg);
+}
+.battleship .ship.muelle12 {
+    top: 22%;
+    left: 13%;
+    transform: rotate(-5deg);
+}

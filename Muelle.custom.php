@@ -70,11 +70,11 @@ function remove_tables(){
 
 function muelle_form_settings(){
 	
-	wp_enqueue_style( $handle="ccsAdmin",  $src = '/wp-content/plugins/Muelle-custom/css/admin.css');
-	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/js/mask.js');
-	wp_enqueue_script( $handle="datepicker" , $src= '/wp-content/plugins/Muelle-custom/js/datetimepicker.min.js');
-	wp_enqueue_script( $handle="timepicker" , $src= '/wp-content/plugins/Muelle-custom/js/wickedpicker.js');
-	wp_enqueue_script( $handle="jsAdmin" , $src= '/wp-content/plugins/Muelle-custom/js/adminScript.js');
+	wp_enqueue_style( $handle="ccsAdmin",  $src = '/wp-content/plugins/Muelle-custom/assets/admin/css/admin.css');
+	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/assets/admin/js/mask.js');
+	wp_enqueue_script( $handle="datepicker" , $src= '/wp-content/plugins/Muelle-custom/assets/admin/js/datetimepicker.min.js');
+	wp_enqueue_script( $handle="timepicker" , $src= '/wp-content/plugins/Muelle-custom/assets/admin/js/wickedpicker.js');
+	wp_enqueue_script( $handle="jsAdmin" , $src= '/wp-content/plugins/Muelle-custom/assets/admin/js/adminScript.js');
 	$resultado = createFormConsulDb();
 
 ?>
@@ -269,8 +269,7 @@ function process_form_data() {
 	foreach ($formInfo as $item => $info) {
 		
 		if($info['id'] != ""){
-			$wpdb-> update ($table_name, array(
-									
+			$wpdb-> update ($table_name, array(									
 										'motonave'=>$info['motonave'],
 										'muelle_actual'=>$info['muelle'],
 										'orientacion'=>$info['orientacion'],
@@ -309,5 +308,64 @@ function process_form_data() {
 }	
 	wp_redirect( $_SERVER['HTTP_REFERER'] );
 }
+
+function muelle_status() {
+	
+	$datainfo = createFormConsulDb();
+	
+	
+	
+	wp_enqueue_style( $handle="muelleCss",  $src = '/wp-content/plugins/Muelle-custom/assets/client/css/muelle.css');
+	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/assets/client/js/muelle.js');
+?>
+	<div class="container_muelle">
+		<div class="muelle_back">
+			<img src="/wp-content/uploads/2017/09/mapa.png" draggable="false" ></img>
+			<div class="battleship">
+			<?php 
+			foreach ($datainfo as $ship) {
+			?>
+				<div class="ship <?php echo "muelle{$ship['muelle_actual']}" ; 
+											if($ship['orientacion']==1){
+													echo" babor";
+												}
+												else{
+													echo" estribor";
+												}
+											?>">
+					
+				</div>
+			<?php 
+			}
+			?>
+			
+			
+			
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+<?php 
+echo "<pre>";
+print_r($datainfo);
+echo "</pre>";
+?>	
+
+<?php 
+}
+add_shortcode('muelle_status', 'muelle_status');
 
 ?>
