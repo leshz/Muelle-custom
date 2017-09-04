@@ -66,32 +66,32 @@
     transform: rotate(-5deg);
 }
 .battleship .ship.muelle7 {
-    top: 22%;
-    left: 13%;
+    top: 17.7%;
+    left: 46.6%;
     transform: rotate(-5deg);
 }
 .battleship .ship.muelle8 {
-    top: 22%;
-    left: 13%;
+    top: 16.8%;
+    left: 54%;
     transform: rotate(-5deg);
 }
 .battleship .ship.muelle9 {
-     top: 22%;
-    left: 13%;
+    top: 16%;
+    left: 60.3%;
     transform: rotate(-5deg);
 }
 .battleship .ship.muelle10 {
-     top: 22%;
-    left: 13%;
-    transform: rotate(-5deg);
+    top: 19.8%;
+    right: 26%;
+    transform: rotate(33deg);
 }
 .battleship .ship.muelle11 {
-     top: 22%;
-    left: 13%;
-    transform: rotate(-5deg);
+    top: 25.5%;
+    right: 20%;
+    transform: rotate(33deg);
 }
 .battleship .ship.muelle12 {
-    top: 22%;
-    left: 13%;
-    transform: rotate(-5deg);
+    top: 31%;
+    right: 14%;
+    transform: rotate(33deg);
 }

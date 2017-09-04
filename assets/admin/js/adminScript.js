@@ -1,5 +1,4 @@
 (function($) {
-
     $(document).ready(function() {
         $.fn.datepicker.setDefaults({ startDate: true, language: 'es-ES', format: 'dd/mm/yyyy' })
         var formAdmin = $('.muelle-form')
@@ -24,7 +23,6 @@
             subForm.addClass('hiden').removeClass('actived')
         }
     })
-    
     $(".content-form").on("focus","#date",function (){
      $('[data-toggle="datepicker"]').datepicker()    
     })
@@ -58,7 +56,6 @@
             $(".timepickband").timepicki()
         }
     })
-    
     function checkCampos(obj) {
         var camposRellenados = true;
         obj.each(function() {
@@ -76,7 +73,6 @@
             return true;
         }
     }
-    
     $(".content-form").on("click", ".delete", function(ev) {
         
         var content = $(this).parents(".bar-unity")   

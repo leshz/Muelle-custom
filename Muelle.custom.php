@@ -339,9 +339,42 @@ function muelle_status() {
 			}
 			?>
 			
-			
-			
+		
 			</div>
+		</div>
+		
+		<div class="infomuelle">
+		
+		<?php
+			foreach ($datainfo as $ship) { ?>
+			
+			<div class="item">
+			
+			<div><span></span>Motonave <p><?php echo $ship['motonave']; ?></p> </div>
+			<div><span></span>Fecha atraque <p><?php echo $ship['fecha_atrac']; ?></p> </div>
+			<div><span></span>Hora Atraque <p><?php echo $ship['hora']; ?></p> </div>
+			<div><span></span>Agente maritimo <p><?php echo $ship['agente']; ?></p> </div>
+			<div><span></span>Eslora <p><?php echo $ship['eslora']; ?></p> </div>
+			<div><span></span>Calado <p><?php echo $ship['calado']; ?></p> </div>
+			<div><span></span>Clientes principales <p><?php echo $ship['client_princp']; ?></p> </div>
+			<div><span></span>Producto <p><?php echo $ship['producto']; ?></p> </div>	
+			<div><span></span>Tonelaje Anunciado <p><?php echo $ship['ton_anun']; ?></p> </div>	
+			<div><span></span>Tonelaje descargado <p><?php echo $ship['ton_desc']; ?></p> </div>	
+			<div><span></span>Tonelaje Acumulado <p><?php echo $ship['ton_acum']; ?></p> </div>	
+			<div><span></span>Saldo motonave <p><?php echo $ship['sal-motonave']; ?></p> </div>
+			
+			
+			
+			
+			
+			</div>		
+		
+		<?php }?>
+		
+	
+		
+		
+		
 		</div>
 	</div>
 
