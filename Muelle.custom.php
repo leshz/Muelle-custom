@@ -332,7 +332,9 @@ function muelle_status() {
 												else{
 													echo" estribor";
 												}
-											?>">
+											?>"
+											id="<?php echo"muelle{$ship['muelle_actual']}" ;?>" >
+					<span class="tooltiptext"><?php echo $ship['motonave']; ?></span>
 					
 				</div>
 			<?php 
@@ -344,59 +346,75 @@ function muelle_status() {
 		</div>
 		
 		<div class="infomuelle">
-		
 		<?php
 			foreach ($datainfo as $ship) { ?>
-			
-			<div class="item">
-			
-			<div><span></span>Motonave <p><?php echo $ship['motonave']; ?></p> </div>
-			<div><span></span>Fecha atraque <p><?php echo $ship['fecha_atrac']; ?></p> </div>
-			<div><span></span>Hora Atraque <p><?php echo $ship['hora']; ?></p> </div>
-			<div><span></span>Agente maritimo <p><?php echo $ship['agente']; ?></p> </div>
-			<div><span></span>Eslora <p><?php echo $ship['eslora']; ?></p> </div>
-			<div><span></span>Calado <p><?php echo $ship['calado']; ?></p> </div>
-			<div><span></span>Clientes principales <p><?php echo $ship['client_princp']; ?></p> </div>
-			<div><span></span>Producto <p><?php echo $ship['producto']; ?></p> </div>	
-			<div><span></span>Tonelaje Anunciado <p><?php echo $ship['ton_anun']; ?></p> </div>	
-			<div><span></span>Tonelaje descargado <p><?php echo $ship['ton_desc']; ?></p> </div>	
-			<div><span></span>Tonelaje Acumulado <p><?php echo $ship['ton_acum']; ?></p> </div>	
-			<div><span></span>Saldo motonave <p><?php echo $ship['sal-motonave']; ?></p> </div>
-			
-			
-			
-			
-			
+			<div class="shipinfo " id="<?php echo "muelle{$ship['muelle_actual']}" ?>" >
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no_padding ">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <table>
+            <tbody>
+                <tr>
+                    <th>Motonave</th>
+                    <td><?php echo $ship['motonave']; ?></td>
+                </tr>
+                <tr>
+                    <th>Fecha de Atraque</th>
+                    <td><?php echo $ship['fecha_atrac']; ?></td>
+                </tr>
+                <tr>
+                    <th>Hora Atraque</th>
+                    <td><?php echo $ship['hora']; ?></td>
+                </tr>
+                <tr>
+                    <th>Agente Maritimo</th>
+                    <td><?php echo $ship['agente']; ?></td>
+                </tr>
+                 <tr>
+                    <th>Eslora</th>
+                    <td><?php echo $ship['eslora']; ?></td>
+                </tr>
+                 <tr>
+                    <th>Calado</th>
+                    <td><?php echo $ship['calado']; ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <table>
+            <tbody>
+                <tr>
+                    <th>Clientes Principales</th>
+                    <td><?php echo $ship['client_princp']; ?></td>
+                </tr>
+                <tr>
+                    <th>Producto</th>
+                    <td><?php echo $ship['producto']; ?></td>
+                </tr>
+                <tr>
+                    <th>Tonelaje Anunciado</th>
+                    <td><?php echo $ship['ton_anun']; ?></td>
+                </tr>
+                <tr>
+                    <th>Tonelaje Descargado</th>
+                    <td><?php echo $ship['ton_desc']; ?></td>
+                </tr>
+                 <tr>
+                    <th>Tonelaje Acumulado</th>
+                    <td><?php echo $ship['ton_acum']; ?></td>
+                </tr>
+                 <tr>
+                    <th>Saldo motonave</th>
+                    <td><?php echo $ship['sal-motonave']; ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 			</div>		
-		
 		<?php }?>
-		
-	
-		
-		
-		
 		</div>
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-<?php 
-echo "<pre>";
-print_r($datainfo);
-echo "</pre>";
-?>	
-
 <?php 
 }
 add_shortcode('muelle_status', 'muelle_status');
