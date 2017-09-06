@@ -104,7 +104,7 @@ function muelle_form_settings(){
 								<select class="u-full-width" name="<?php echo$form; ?>[muelle]"  value="<?php echo $item['muelle_actual']; ?>">
 								<option value=""></option>
 								<?php 
-								for($i=1;$i <= 12 ; $i++){
+								for($i=1;$i <= 14 ; $i++){
 									if($item['muelle_actual']==$i){
 										echo "<option value='$i' selected>$i</option>";		
 									}else{
@@ -320,7 +320,7 @@ function muelle_status() {
 ?>
 	<div class="container_muelle">
 		<div class="muelle_back">
-			<img src="/wp-content/uploads/2017/09/mapa.png" draggable="false" ></img>
+			<img src="<?php echo plugins_url( 'assets/client/img/mapa-puerto.png', __FILE__ ) ?>" draggable="false" />
 			<div class="battleship">
 			<?php 
 			foreach ($datainfo as $ship) {
@@ -334,6 +334,7 @@ function muelle_status() {
 												}
 											?>"
 											id="<?php echo"muelle{$ship['muelle_actual']}" ;?>" >
+			
 					<span class="tooltiptext"><?php echo $ship['motonave']; ?></span>
 					
 				</div>

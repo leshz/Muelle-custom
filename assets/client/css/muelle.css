@@ -24,11 +24,15 @@
     height: 100%;
 }
 .ship{
-    width: 50px;
-    height: 20px;
-    background-color: red;
-    position: absolute; 
+    width: 8%;
+    height: 3%;
+    background-color: rgba(255, 255, 255, 0);
+    position: absolute;
     cursor: pointer;
+    background-image: url(../img/icono_active.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .battleship .ship.muelle0 {
@@ -36,13 +40,13 @@
     left: 5%;
 }
 .battleship .ship.muelle1 {
-    top: 23%;
-    left: 6%;
-    transform: rotate(-5deg);
+    top: 30%;
+    left: 5%;
+    transform: rotate(-60deg);
 }
 .battleship .ship.muelle2 {
-    top: 22%;
-    left: 13%;
+    top: 25%;
+    left: 12%;
     transform: rotate(-5deg);
 
 }

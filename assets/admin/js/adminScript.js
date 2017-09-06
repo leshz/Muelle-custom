@@ -43,8 +43,8 @@
 
     $("#addField").click(function(ev) {
         var num = $(".bar-unity").length
-        if (num >= 12) {
-            alert("No pueden existir más de 12 barcos")
+        if (num >= 14) {
+            alert("No pueden existir más de 14 barcos")
         } else {
             num+= 1 
             var barUnityNew= $(".bar-unity").eq(0).clone();
