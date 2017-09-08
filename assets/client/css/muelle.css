@@ -24,12 +24,12 @@
     height: 100%;
 }
 .ship{
-    width: 8%;
+    width: 6.5%;
     height: 3%;
     background-color: rgba(255, 255, 255, 0);
     position: absolute;
     cursor: pointer;
-    background-image: url(../img/icono_active.svg);
+    background-image: url(../img/icono_default.svg);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center center;
@@ -40,64 +40,74 @@
     left: 5%;
 }
 .battleship .ship.muelle1 {
-    top: 30%;
+    top: 32%;
     left: 5%;
     transform: rotate(-60deg);
 }
 .battleship .ship.muelle2 {
-    top: 25%;
-    left: 12%;
+    top: 25.2%;
+    left: 12.3%;
     transform: rotate(-5deg);
 
 }
 .battleship .ship.muelle3 {
-    top: 21%;
-    left: 20%;
+    top: 24.2%;
+    left: 19%;
     transform: rotate(-5deg);
 }
 .battleship .ship.muelle4 {
-    top: 20.2%;
-    left: 26.5%;
+    top: 23.4%;
+    left: 25.7%;
     transform: rotate(-5deg);
 }
 .battleship .ship.muelle5 {
-    top: 19.4%;
-    left: 33.1%;
+    top: 22.4%;
+    left: 32.3%;
     transform: rotate(-5deg);
 }
 .battleship .ship.muelle6 {
-    top: 18.5%;
-    left: 40%;
+    top: 21.7%;
+    left: 38.8%;
     transform: rotate(-5deg);
 }
 .battleship .ship.muelle7 {
-    top: 17.7%;
-    left: 46.6%;
+top: 20.9%;
+    left: 45.3%;
     transform: rotate(-5deg);
 }
 .battleship .ship.muelle8 {
-    top: 16.8%;
-    left: 54%;
+    top: 20%;
+    left: 52%;
     transform: rotate(-5deg);
 }
 .battleship .ship.muelle9 {
-    top: 16%;
-    left: 60.3%;
+    top: 19%;
+    left: 58.9%;
     transform: rotate(-5deg);
 }
 .battleship .ship.muelle10 {
-    top: 19.8%;
-    right: 26%;
+    top: 21%;
+    right: 28%;
     transform: rotate(33deg);
 }
 .battleship .ship.muelle11 {
-    top: 25.5%;
-    right: 20%;
+    top: 26.5%;
+    right: 22%;
     transform: rotate(33deg);
 }
 .battleship .ship.muelle12 {
-    top: 31%;
-    right: 14%;
+    top: 32%;
+    right: 16%;
+    transform: rotate(33deg);
+}
+.battleship .ship.muelle13 {
+    top: 37.6%;
+    right: 10%;
+    transform: rotate(33deg);
+}
+.battleship .ship.muelle14 {
+    top: 46%;
+    right: 0%;
     transform: rotate(33deg);
 }
 
@@ -130,9 +140,8 @@ display: block;
 }
 
 .selected {
-    -webkit-box-shadow: 0px 0px 17px 0px rgba(255,255,255,1);
-    -moz-box-shadow: 0px 0px 17px 0px rgba(255,255,255,1);
-    box-shadow: 0px 0px 17px 0px rgba(255,255,255,1);
+    background-image: url(../img/icono_active.svg);
+
 }
 
 /** -------------------------------------------------------------------------- **/  
