@@ -70,11 +70,11 @@ function remove_tables(){
 
 function muelle_form_settings(){
 	
-	wp_enqueue_style( $handle="ccsAdmin",  $src = '/wp-content/plugins/Muelle-custom/assets/admin/css/admin.css');
-	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/assets/admin/js/mask.js');
-	wp_enqueue_script( $handle="datepicker" , $src= '/wp-content/plugins/Muelle-custom/assets/admin/js/datetimepicker.min.js');
-	wp_enqueue_script( $handle="timepicker" , $src= '/wp-content/plugins/Muelle-custom/assets/admin/js/wickedpicker.js');
-	wp_enqueue_script( $handle="jsAdmin" , $src= '/wp-content/plugins/Muelle-custom/assets/admin/js/adminScript.js');
+	wp_enqueue_style( $handle="ccsAdmin",  plugin_dir_url( __FILE__ ).'assets/admin/css/admin.css');
+	wp_enqueue_script( $handle="maskLibrary" , plugin_dir_url( __FILE__ ).'assets/admin/js/mask.js');
+	wp_enqueue_script( $handle="datepicker" , plugin_dir_url( __FILE__ ).'assets/admin/js/datetimepicker.min.js');
+	wp_enqueue_script( $handle="timepicker" , plugin_dir_url( __FILE__ ).'assets/admin/js/wickedpicker.js');
+	wp_enqueue_script( $handle="jsAdmin" , plugin_dir_url( __FILE__ ).'assets/admin/js/adminScript.js');
 	$resultado = createFormConsulDb();
 
 ?>
@@ -309,14 +309,19 @@ function process_form_data() {
 	wp_redirect( $_SERVER['HTTP_REFERER'] );
 }
 
+
+function styles_muelle() {
+    wp_register_style( 'muellecss', plugin_dir_url( __FILE__ ).'assets/client/css/muelle.css', 'parent-stylesheet', '1.0', all ); 
+    wp_register_script('maskLibrary' , plugin_dir_url( __FILE__ ).'assets/client/js/muelle.js','parent-stylesheet', '1.0', all);
+}
+
+add_action( 'wp_enqueue_scripts', 'styles_muelle' );
+
+
 function muelle_status() {
-	
 	$datainfo = createFormConsulDb();
-	
-	
-	
-	wp_enqueue_style( $handle="muelleCss",  $src = '/wp-content/plugins/Muelle-custom/assets/client/css/muelle.css');
-	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/assets/client/js/muelle.js');
+	wp_enqueue_style( 'muellecss' ); 
+	wp_enqueue_script('maskLibrary');
 ?>
 	<div class="container_muelle">
 		<div class="loader">
@@ -349,8 +354,6 @@ function muelle_status() {
 			<?php 
 			}
 			?>
-			
-		
 			</div>
 		</div>
 		
