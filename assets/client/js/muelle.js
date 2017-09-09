@@ -3,6 +3,15 @@
     $(window).ready(function(){
         $(".shipinfo").hide(); 
     })
+    
+    $(window).load(function (){
+        setTimeout(function(){
+            $(".loader").addClass("bye")
+        }, 1000)
+        setTimeout(function(){
+            $(".loader").hide()
+        }, 2000)
+    })
     $(".ship").click(function(ev){
         $(".ship").removeClass('selected')
         $(this).addClass('selected')

@@ -319,11 +319,22 @@ function muelle_status() {
 	wp_enqueue_script( $handle="maskLibrary" , $src= '/wp-content/plugins/Muelle-custom/assets/client/js/muelle.js');
 ?>
 	<div class="container_muelle">
+		<div class="loader">
+			<div class="loading">
+				<div class="sk-folding-cube">
+					<div class="sk-cube1 sk-cube"></div>
+					<div class="sk-cube2 sk-cube"></div>
+					<div class="sk-cube4 sk-cube"></div>
+					<div class="sk-cube3 sk-cube"></div>
+				</div>
+			</div>	
+		</div>
 		<div class="muelle_back">
 			<img src="<?php echo plugins_url( 'assets/client/img/mapa-puerto.png', __FILE__ ) ?>" draggable="false" />
 			<div class="battleship">
-			<?php 
-			foreach ($datainfo as $ship) {
+			<?php
+			if( $datainfo[0]['motonave'] != "" ){
+				foreach ($datainfo as $ship) {
 			?>
 				<div class="ship <?php echo "muelle{$ship['muelle_actual']}" ; 
 											if($ship['orientacion']==1){
@@ -333,10 +344,7 @@ function muelle_status() {
 													echo" estribor";
 												}
 											?>"
-											id="<?php echo"muelle{$ship['muelle_actual']}" ;?>" >
-			
-					<span class="tooltiptext"><?php echo $ship['motonave']; ?></span>
-					
+											id="<?php echo"muelle{$ship['muelle_actual']}" ;?>" >			
 				</div>
 			<?php 
 			}
@@ -413,7 +421,7 @@ function muelle_status() {
     </div>
 </div>
 			</div>		
-		<?php }?>
+		<?php } }?>
 		</div>
 	</div>
 <?php 
