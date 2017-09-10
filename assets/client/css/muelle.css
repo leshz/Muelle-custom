@@ -2,8 +2,50 @@
     position: relative;
     width: 100%;
     height: auto;
-    max-width: 1000px;
+    max-width: 1280px;
+    margin: 0 auto;
 }
+
+.nopadding {
+    margin: 0;
+    padding: 0;
+}
+
+.shipinfo  {
+    padding: 40px 0;
+    overflow: hidden;
+}
+
+.shipinfo table {
+    width: 100%;
+    border:1px solid #006f9e;
+}
+
+.shipinfo th{
+	background-color: #006f9e;
+    text-align: left;
+    padding: 7px 20px;							
+    width: 50%;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 100;
+    border-bottom: 1px solid #a8c1cd;
+}
+
+.shipinfo .ulti {
+    border-bottom: 1px solid  #1b5f88 !important;
+}
+
+.shipinfo td {
+    color: #FFF;
+    text-align: right;
+    border-bottom: 1px solid #035f88;
+    padding: 7px 20px;
+  	font-size: 16px;
+    font-weight: 100;			
+}
+
+
 .muelle_back {
     position: relative;
     top: 0;
@@ -147,7 +189,7 @@
     height: 100%;
     left: 0;
     top: 0;
-    background: #1E385B;
+    background: #0F3D64;
     z-index: 999;
     opacity: 1;
     transition: all 1s ease-in-out;

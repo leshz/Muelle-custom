@@ -20,7 +20,9 @@
         while(idship.charAt(0) === ' '){
             idship = idship.substr(1);
         }
-         $(".shipinfo").hide(1000); 
+        $(".shipinfo").hide(1000)
         infomuelle.find('#'+idship).show(1000) 
+        var position = $("#info-ship").offset().top
+        $('html,body').animate( {scrollTop :position}, 1200 );
     })
 })(jQuery);

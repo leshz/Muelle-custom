@@ -19,7 +19,7 @@ function mapEdit_plugin_menu(){
 					'Muelle',							//Título del menú
 					'administrator',					//Rol que puede acceder
 				  	'muelle_form_settings-page',		//Id de la página de opciones
-				  	'muelle_form_settings',	//Función que pinta la página de configuración del plugin
+				  	'muelle_form_settings',				//Función que pinta la página de configuración del plugin
 				  	'dashicons-admin-site');			//Icono del menú
 }
 add_action('admin_menu','mapEdit_plugin_menu');
@@ -311,8 +311,8 @@ function process_form_data() {
 
 
 function styles_muelle() {
-    wp_register_style( 'muellecss', plugin_dir_url( __FILE__ ).'assets/client/css/muelle.css', 'parent-stylesheet', '1.0', all ); 
-    wp_register_script('maskLibrary' , plugin_dir_url( __FILE__ ).'assets/client/js/muelle.js','parent-stylesheet', '1.0', all);
+    wp_register_style( 'muellecss', plugin_dir_url( __FILE__ ).'assets/client/css/muelle.css', FALSE, NULL, 'all' ); 
+    wp_register_script('maskLibrary' , plugin_dir_url( __FILE__ ).'assets/client/js/muelle.js',FALSE, NULL, 'all');
 }
 
 add_action( 'wp_enqueue_scripts', 'styles_muelle' );
@@ -320,8 +320,7 @@ add_action( 'wp_enqueue_scripts', 'styles_muelle' );
 
 function muelle_status() {
 	$datainfo = createFormConsulDb();
-	wp_enqueue_style( 'muellecss' ); 
-	wp_enqueue_script('maskLibrary');
+	
 ?>
 	<div class="container_muelle">
 		<div class="loader">
@@ -357,77 +356,91 @@ function muelle_status() {
 			</div>
 		</div>
 		
-		<div class="infomuelle">
+		<div class="container infomuelle" id ="info-ship">
 		<?php
 			foreach ($datainfo as $ship) { ?>
-			<div class="shipinfo " id="<?php echo "muelle{$ship['muelle_actual']}" ?>" >
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no_padding ">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <table>
-            <tbody>
-                <tr>
-                    <th>Motonave</th>
-                    <td><?php echo $ship['motonave']; ?></td>
-                </tr>
-                <tr>
-                    <th>Fecha de Atraque</th>
-                    <td><?php echo $ship['fecha_atrac']; ?></td>
-                </tr>
-                <tr>
-                    <th>Hora Atraque</th>
-                    <td><?php echo $ship['hora']; ?></td>
-                </tr>
-                <tr>
-                    <th>Agente Maritimo</th>
-                    <td><?php echo $ship['agente']; ?></td>
-                </tr>
-                 <tr>
-                    <th>Eslora</th>
-                    <td><?php echo $ship['eslora']; ?></td>
-                </tr>
-                 <tr>
-                    <th>Calado</th>
-                    <td><?php echo $ship['calado']; ?></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <table>
-            <tbody>
-                <tr>
-                    <th>Clientes Principales</th>
-                    <td><?php echo $ship['client_princp']; ?></td>
-                </tr>
-                <tr>
-                    <th>Producto</th>
-                    <td><?php echo $ship['producto']; ?></td>
-                </tr>
-                <tr>
-                    <th>Tonelaje Anunciado</th>
-                    <td><?php echo $ship['ton_anun']; ?></td>
-                </tr>
-                <tr>
-                    <th>Tonelaje Descargado</th>
-                    <td><?php echo $ship['ton_desc']; ?></td>
-                </tr>
-                 <tr>
-                    <th>Tonelaje Acumulado</th>
-                    <td><?php echo $ship['ton_acum']; ?></td>
-                </tr>
-                 <tr>
-                    <th>Saldo motonave</th>
-                    <td><?php echo $ship['sal-motonave']; ?></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-			</div>		
+<div class="shipinfo " id="<?php echo "muelle{$ship['muelle_actual']}" ?>" >
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	        <table>
+	            <tbody>
+	                <tr>
+	                    <th>Motonave</th>
+	                    <td><?php echo $ship['motonave']; ?></td>
+	                </tr>
+	                <tr>
+	                    <th>Fecha de Atraque</th>
+	                    <td><?php echo $ship['fecha_atrac']; ?></td>
+	                </tr>
+	                <tr>
+	                    <th>Hora Atraque</th>
+	                    <td><?php echo $ship['hora']; ?></td>
+	                </tr>
+	                <tr>
+	                    <th>Agente Maritimo</th>
+	                    <td><?php echo $ship['agente']; ?></td>
+	                </tr>
+	                 <tr>
+	                    <th>Eslora</th>
+	                    <td><?php echo $ship['eslora']; ?></td>
+	                </tr>
+	                 <tr>
+	                    <th>Calado</th>
+	                    <td><?php echo $ship['calado']; ?></td>
+	                </tr>
+	                <tr>
+	                    <th class="ulti">Atracado</th>
+	                    <td><?php if ($ship['orientacion']==1){
+	                    		echo "Babor";
+	                    	} else if ($ship['orientacion']==2){
+	                    		echo "Estribor";
+	                    	} ?></td>
+	                </tr>
+	            </tbody>
+	        </table>
+	    </div>
+	    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	        <table>
+	            <tbody>
+	                <tr>
+	                    <th>Clientes Principales</th>
+	                    <td><?php echo $ship['client_princp']; ?></td>
+	                </tr>
+	                <tr>
+	                    <th>Producto</th>
+	                    <td><?php echo $ship['producto']; ?></td>
+	                </tr>
+	                <tr>
+	                    <th>Tonelaje Anunciado</th>
+	                    <td><?php echo $ship['ton_anun']; ?></td>
+	                </tr>
+	                <tr>
+	                    <th>Tonelaje Descargado</th>
+	                    <td><?php echo $ship['ton_desc']; ?></td>
+	                </tr>
+	                 <tr>
+	                    <th>Tonelaje Acumulado</th>
+	                    <td><?php echo $ship['ton_acum']; ?></td>
+	                </tr>
+	                 <tr>
+	                    <th>Saldo motonave</th>
+	                    <td><?php echo $ship['sal-motonave']; ?></td>
+	                </tr>
+	                <tr>
+	                    <th class="ulti">Atracado en Muelle #</th>
+	                    <td><?php echo $ship['muelle_actual']; ?></td>
+	                </tr>
+	            </tbody>
+	        </table>
+	    </div>
+	</div>
+</div>		
 		<?php } }?>
 		</div>
 	</div>
-<?php 
+<?php
+	wp_enqueue_style('muellecss'); 
+	wp_enqueue_script('maskLibrary');	 
 }
 add_shortcode('muelle_status', 'muelle_status');
 
