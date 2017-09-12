@@ -26,3 +26,8 @@
         $('html,body').animate( {scrollTop :position}, 1200 );
     })
 })(jQuery);
+
+function download(d) {
+        if (d == 'Select document') return;
+        window.location =d;
+}

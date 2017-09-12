@@ -447,6 +447,7 @@ function muelle_status() {
 
 add_shortcode('muelle_status', 'muelle_status');
 
+
 function getFiveLastpdf($atts){
 
 	$attachments = get_posts( array(
@@ -456,16 +457,27 @@ function getFiveLastpdf($atts){
     'post_mime_type' => 'application/pdf'
 ) );
 
+echo '<select name="download" onChange="download(this.value)">';
+echo '<option>Select document</option>';
 foreach ( $attachments as $attachment ) {
-    echo "<pre>";
-    print_r($attachment);
-    echo"</pre>";
+	echo "<option value='{$attachment->guid}'>{$attachment->post_date}</option>";
 }
-
+echo "</select>";
 }
 
 
 
 add_shortcode('pdfselect', 'getFiveLastpdf');
 
+
+
+
+
+
+
 ?>
+
+
+
+
+
