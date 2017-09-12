@@ -348,7 +348,8 @@ function muelle_status() {
 													echo" estribor";
 												}
 											?>"
-											id="<?php echo"muelle{$ship['muelle_actual']}" ;?>" >			
+											id="<?php echo"muelle{$ship['muelle_actual']}" ;?>" >
+				 <span class="tooltiptext"><?php echo $ship['motonave'];  ?></span>
 				</div>
 			<?php 
 			}

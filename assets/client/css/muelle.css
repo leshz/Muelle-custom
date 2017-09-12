@@ -173,6 +173,50 @@
 .battleship .ship.muelle14.babor{
     transform: rotate(33deg) rotateZ(180deg);
 }
+.ship .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #FFF;
+    color: #22395d;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom:20px;
+    left:-40%;
+}
+.ship.estribor .tooltiptext {
+    bottom:-35px;
+}
+
+.ship.muelle14.estribor .tooltiptext {
+    left: -100%;
+}
+
+.ship.muelle14.babor .tooltiptext {
+    right:-100% !important;
+}
+
+.ship .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;  /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #FFF transparent;
+}
+
+.ship.babor .tooltiptext {
+    transform: rotate(180deg) !important;
+}
+
+
+.ship:hover .tooltiptext {
+    visibility: visible;
+}
 .muelle.info {
     display: none;
 }
