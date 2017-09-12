@@ -436,13 +436,36 @@ function muelle_status() {
 	    </div>
 	</div>
 </div>		
-		<?php } }?>
+		<?php } }		
+		?>
 		</div>
 	</div>
 <?php
 	wp_enqueue_style('muellecss'); 
 	wp_enqueue_script('maskLibrary');	 
 }
+
 add_shortcode('muelle_status', 'muelle_status');
+
+function getFiveLastpdf($atts){
+
+	$attachments = get_posts( array(
+    'post_type' => 'attachment',
+    'posts_per_page' => $atts['val'],
+    'post_status' => null,
+    'post_mime_type' => 'application/pdf'
+) );
+
+foreach ( $attachments as $attachment ) {
+    echo "<pre>";
+    print_r($attachment);
+    echo"</pre>";
+}
+
+}
+
+
+
+add_shortcode('pdfselect', 'getFiveLastpdf');
 
 ?>
