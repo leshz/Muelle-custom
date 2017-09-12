@@ -198,6 +198,12 @@
     right:-100% !important;
 }
 
+@media (max-width: 768px) {
+    .ship .tooltiptext {
+        display:none;
+    }
+}
+
 .ship .tooltiptext::after {
     content: " ";
     position: absolute;
