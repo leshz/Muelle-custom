@@ -461,7 +461,8 @@ function getFiveLastpdf($atts){
 ?>
 	<div class="filepicker">	
 	<select>
-	<option>Seleccione una fecha</option>
+
+	<option value="0">Seleccione una fecha</option>
 	
 <?php 	
 	foreach ( $attachments as $attachment ) {
@@ -484,8 +485,3 @@ function getFiveLastpdf($atts){
 add_shortcode('pdfselect', 'getFiveLastpdf');
 
 ?>
-
-
-
-
-

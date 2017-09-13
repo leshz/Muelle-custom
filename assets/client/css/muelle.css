@@ -11,20 +11,20 @@
     padding: 0;
 }
 
-.shipinfo  {
+.shipinfo {
     padding: 40px 0;
     overflow: hidden;
 }
 
 .shipinfo table {
     width: 100%;
-    border:1px solid #006f9e;
+    border: 1px solid #006f9e;
 }
 
-.shipinfo th{
-	background-color: #006f9e;
+.shipinfo th {
+    background-color: #006f9e;
     text-align: left;
-    padding: 7px 20px;							
+    padding: 7px 20px;
     width: 50%;
     color: #FFF;
     font-size: 16px;
@@ -33,7 +33,7 @@
 }
 
 .shipinfo .ulti {
-    border-bottom: 1px solid  #1b5f88 !important;
+    border-bottom: 1px solid #1b5f88 !important;
 }
 
 .shipinfo td {
@@ -41,8 +41,8 @@
     text-align: right;
     border-bottom: 1px solid #035f88;
     padding: 7px 20px;
-  	font-size: 16px;
-    font-weight: 100;			
+    font-size: 16px;
+    font-weight: 100;
 }
 
 
@@ -53,10 +53,12 @@
     right: 0;
     bottom: 0;
 }
+
 .muelle_back img {
     width: 100%;
     display: block;
 }
+
 .battleship {
     position: absolute;
     top: 0;
@@ -66,6 +68,7 @@
     width: 100%;
     height: 100%;
 }
+
 .ship {
     width: 6.5%;
     height: 3%;
@@ -77,10 +80,12 @@
     background-repeat: no-repeat;
     background-position: center center;
 }
+
 .battleship .ship.muelle0 {
     top: 5%;
     left: 5%;
 }
+
 .battleship .ship.muelle1 {
     top: 32%;
     left: 5%;
@@ -98,64 +103,77 @@
     left: 19%;
     transform: rotate(-5deg);
 }
+
 .battleship .ship.muelle4 {
     top: 23.4%;
     left: 25.7%;
     transform: rotate(-5deg);
 }
+
 .battleship .ship.muelle5 {
     top: 22.4%;
     left: 32.3%;
     transform: rotate(-5deg);
 }
+
 .battleship .ship.muelle6 {
     top: 21.7%;
     left: 38.8%;
     transform: rotate(-5deg);
 }
+
 .battleship .ship.muelle7 {
     top: 20.9%;
     left: 45.3%;
     transform: rotate(-5deg);
 }
+
 .battleship .ship.muelle8 {
     top: 20%;
     left: 52%;
     transform: rotate(-5deg);
 }
+
 .battleship .ship.muelle9 {
     top: 19%;
     left: 58.9%;
     transform: rotate(-5deg);
 }
+
 .battleship .ship.muelle10 {
     top: 21%;
     right: 28%;
     transform: rotate(33deg);
 }
+
 .battleship .ship.muelle11 {
     top: 26.5%;
     right: 22%;
     transform: rotate(33deg);
 }
+
 .battleship .ship.muelle12 {
     top: 32%;
     right: 16%;
     transform: rotate(33deg);
 }
+
 .battleship .ship.muelle13 {
     top: 37.6%;
     right: 10%;
     transform: rotate(33deg);
 }
+
 .battleship .ship.muelle14 {
     top: 46%;
     right: 0%;
     transform: rotate(33deg);
 }
+
 .battleship .ship.muelle1.babor {
     transform: rotate(-60deg) rotateZ(180deg);
 }
+
 .battleship .ship.muelle2.babor,
 .battleship .ship.muelle3.babor,
 .battleship .ship.muelle4.babor,
@@ -166,13 +184,15 @@
 .battleship .ship.muelle9.babor {
     transform: rotate(-5deg) rotateZ(180deg);
 }
+
 .battleship .ship.muelle10.babor,
 .battleship .ship.muelle11.babor,
 .battleship .ship.muelle12.babor,
 .battleship .ship.muelle13.babor,
-.battleship .ship.muelle14.babor{
+.battleship .ship.muelle14.babor {
     transform: rotate(33deg) rotateZ(180deg);
 }
+
 .ship .tooltiptext {
     visibility: hidden;
     width: 120px;
@@ -183,11 +203,12 @@
     border-radius: 6px;
     position: absolute;
     z-index: 1;
-    bottom:20px;
-    left:-40%;
+    bottom: 20px;
+    left: -40%;
 }
+
 .ship.estribor .tooltiptext {
-    bottom:-35px;
+    bottom: -35px;
 }
 
 .ship.muelle14.estribor .tooltiptext {
@@ -195,19 +216,20 @@
 }
 
 .ship.muelle14.babor .tooltiptext {
-    right:-100% !important;
+    right: -100% !important;
 }
 
 @media (max-width: 768px) {
     .ship .tooltiptext {
-        display:none;
+        display: none;
     }
 }
 
 .ship .tooltiptext::after {
     content: " ";
     position: absolute;
-    bottom: 100%;  /* At the top of the tooltip */
+    bottom: 100%;
+    /* At the top of the tooltip */
     left: 50%;
     margin-left: -5px;
     border-width: 5px;
@@ -223,14 +245,58 @@
 .ship:hover .tooltiptext {
     visibility: visible;
 }
+
 .muelle.info {
     display: none;
 }
+
 .muelle.info.show {
     display: block;
 }
+
 .selected {
     background-image: url(../img/icono_active.svg);
+}
+
+.filepicker {
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.filepicker select {
+    width: 100%;
+    font-size: 18px;
+    height: 35px;
+    background: #183e66;
+    color: #FFF;
+    border: 1px solid #FFF;
+}
+
+.filepicker select:focus,
+.filepicker select:hover,
+.filepicker select:visited,
+.filepicker select:active {
+    outline: none;
+}
+
+.filepicker button {
+    margin: 30px 0;
+    font-size: 18px;
+    text-transform: lowercase !important;
+    background: #183e66;
+    padding: 7px 14px;
+    color: #FFF;
+    border-radius: 10px;
+    border: 1px solid #FFF;
+}
+
+.filepicker button:focus,
+.filepicker button:hover,
+.filepicker button:visited,
+.filepicker button:active {
+    outline: none;
 }
 
 .loader {
@@ -244,9 +310,11 @@
     opacity: 1;
     transition: all 1s ease-in-out;
 }
+
 .loader.bye {
-  opacity: 0;
+    opacity: 0;
 }
+
 .loading {
     top: 50%;
     position: absolute;
@@ -256,89 +324,107 @@
 }
 
 .sk-folding-cube {
-  margin: 20px auto;
-  width: 40px;
-  height: 40px;
-  position: relative;
-  -webkit-transform: rotateZ(45deg);
-          transform: rotateZ(45deg);
+    margin: 20px auto;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
 }
 
 .sk-folding-cube .sk-cube {
-  float: left;
-  width: 50%;
-  height: 50%;
-  position: relative;
-  -webkit-transform: scale(1.1);
-      -ms-transform: scale(1.1);
-          transform: scale(1.1); 
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
 }
+
 .sk-folding-cube .sk-cube:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #77CBE3;
-  -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
-          animation: sk-foldCubeAngle 2.4s infinite linear both;
-  -webkit-transform-origin: 100% 100%;
-      -ms-transform-origin: 100% 100%;
-          transform-origin: 100% 100%;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #77CBE3;
+    -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+    animation: sk-foldCubeAngle 2.4s infinite linear both;
+    -webkit-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
 }
+
 .sk-folding-cube .sk-cube2 {
-  -webkit-transform: scale(1.1) rotateZ(90deg);
-          transform: scale(1.1) rotateZ(90deg);
+    -webkit-transform: scale(1.1) rotateZ(90deg);
+    transform: scale(1.1) rotateZ(90deg);
 }
+
 .sk-folding-cube .sk-cube3 {
-  -webkit-transform: scale(1.1) rotateZ(180deg);
-          transform: scale(1.1) rotateZ(180deg);
+    -webkit-transform: scale(1.1) rotateZ(180deg);
+    transform: scale(1.1) rotateZ(180deg);
 }
+
 .sk-folding-cube .sk-cube4 {
-  -webkit-transform: scale(1.1) rotateZ(270deg);
-          transform: scale(1.1) rotateZ(270deg);
+    -webkit-transform: scale(1.1) rotateZ(270deg);
+    transform: scale(1.1) rotateZ(270deg);
 }
+
 .sk-folding-cube .sk-cube2:before {
-  -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s;
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
 }
+
 .sk-folding-cube .sk-cube3:before {
-  -webkit-animation-delay: 0.6s;
-          animation-delay: 0.6s; 
+    -webkit-animation-delay: 0.6s;
+    animation-delay: 0.6s;
 }
+
 .sk-folding-cube .sk-cube4:before {
-  -webkit-animation-delay: 0.9s;
-          animation-delay: 0.9s;
+    -webkit-animation-delay: 0.9s;
+    animation-delay: 0.9s;
 }
+
 @-webkit-keyframes sk-foldCubeAngle {
-  0%, 10% {
-    -webkit-transform: perspective(140px) rotateX(-180deg);
-            transform: perspective(140px) rotateX(-180deg);
-    opacity: 0; 
-  } 25%, 75% {
-    -webkit-transform: perspective(140px) rotateX(0deg);
-            transform: perspective(140px) rotateX(0deg);
-    opacity: 1; 
-  } 90%, 100% {
-    -webkit-transform: perspective(140px) rotateY(180deg);
-            transform: perspective(140px) rotateY(180deg);
-    opacity: 0; 
-  } 
+    0%,
+    10% {
+        -webkit-transform: perspective(140px) rotateX(-180deg);
+        transform: perspective(140px) rotateX(-180deg);
+        opacity: 0;
+    }
+    25%,
+    75% {
+        -webkit-transform: perspective(140px) rotateX(0deg);
+        transform: perspective(140px) rotateX(0deg);
+        opacity: 1;
+    }
+    90%,
+    100% {
+        -webkit-transform: perspective(140px) rotateY(180deg);
+        transform: perspective(140px) rotateY(180deg);
+        opacity: 0;
+    }
 }
 
 @keyframes sk-foldCubeAngle {
-  0%, 10% {
-    -webkit-transform: perspective(140px) rotateX(-180deg);
-            transform: perspective(140px) rotateX(-180deg);
-    opacity: 0; 
-  } 25%, 75% {
-    -webkit-transform: perspective(140px) rotateX(0deg);
-            transform: perspective(140px) rotateX(0deg);
-    opacity: 1; 
-  } 90%, 100% {
-    -webkit-transform: perspective(140px) rotateY(180deg);
-            transform: perspective(140px) rotateY(180deg);
-    opacity: 0; 
-  }
+    0%,
+    10% {
+        -webkit-transform: perspective(140px) rotateX(-180deg);
+        transform: perspective(140px) rotateX(-180deg);
+        opacity: 0;
+    }
+    25%,
+    75% {
+        -webkit-transform: perspective(140px) rotateX(0deg);
+        transform: perspective(140px) rotateX(0deg);
+        opacity: 1;
+    }
+    90%,
+    100% {
+        -webkit-transform: perspective(140px) rotateY(180deg);
+        transform: perspective(140px) rotateY(180deg);
+        opacity: 0;
+    }
 }
