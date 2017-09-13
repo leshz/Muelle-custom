@@ -25,9 +25,14 @@
         var position = $("#info-ship").offset().top
         $('html,body').animate( {scrollTop :position}, 1200 );
     })
+    
+    
+    $(".filepicker button").click(function (ev){
+        d=$(".filepicker select").val()
+        if (d != 'Descargar Situacion portuaria'){
+            window.open(d)
+            } 
+    })
+    
 })(jQuery);
 
-function download(d) {
-        if (d == 'Select document') return;
-        window.location =d;
-}

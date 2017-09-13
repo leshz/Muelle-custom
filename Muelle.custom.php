@@ -450,30 +450,38 @@ add_shortcode('muelle_status', 'muelle_status');
 
 function getFiveLastpdf($atts){
 
-	$attachments = get_posts( array(
-    'post_type' => 'attachment',
-    'posts_per_page' => $atts['val'],
-    'post_status' => null,
-    'post_mime_type' => 'application/pdf'
-) );
+	$attachments = get_posts( 
+		array(
+		    'post_type' => 'attachment',
+		    'posts_per_page' => $atts['val'],
+		    'post_status' => null,
+		    'post_mime_type' => 'application/pdf'
+    	) 
+	);
+?>
+	<div class="filepicker">	
+	<select>
+	<option>Seleccione una fecha</option>
+	
+<?php 	
+	foreach ( $attachments as $attachment ) {
+		$hora = date('j \d\e\ F \d\e\ Y', strtotime($attachment->post_date));
+		echo "<option value='{$attachment->guid}'>{$hora}</option>";
+		}
+?>
 
-echo '<select name="download" onChange="download(this.value)">';
-echo '<option>Select document</option>';
-foreach ( $attachments as $attachment ) {
-	echo "<option value='{$attachment->guid}'>{$attachment->post_date}</option>";
+	</select>
+	
+	<button>Descargar Situacion portuaria</button>
+	
+	</div>
+	
+	
+<?php 	
+	
 }
-echo "</select>";
-}
-
-
 
 add_shortcode('pdfselect', 'getFiveLastpdf');
-
-
-
-
-
-
 
 ?>
 
