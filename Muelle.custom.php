@@ -2,11 +2,11 @@
 /**
 	Plugin Name:	Muelle-wp-custom
 	Plugin URI:		http://github.com/leshz/
-	Description:	Plugin para mostrar estado del muelle e informacion 
+	Description:	Plugin para mostrar estado del muelle e informacion
 	Version: 		0.1.0
 	Author:			Jeffer Barragán
 	Author URI:		github.com/leshz
-	License:		GPLv2 or later
+	License:		GPLv2 or laterzzzz
 **/
 
 /*
@@ -25,13 +25,13 @@ function mapEdit_plugin_menu(){
 add_action('admin_menu','mapEdit_plugin_menu');
 
 register_activation_hook( __FILE__, 'installDB' );
- 
+
 function installDB () {
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	global $wpdb;
 
-	$table_name = $wpdb->prefix . 'muelle_status';	
-	
+	$table_name = $wpdb->prefix . 'muelle_status';
+
 	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name){
 		$charset_collate = $wpdb->get_charset_collate();
 		$sql = "CREATE TABLE $table_name (`id` int(3) NOT NULL,
@@ -44,7 +44,7 @@ function installDB () {
 		  `client_princp` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `producto` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
 	      `eslora` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-	      `calado` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL, 
+	      `calado` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `ton_anun` int(20) DEFAULT NULL,
 		  `ton_desc` int(20) DEFAULT NULL ,
 		  `ton_acum` int(20) DEFAULT NULL,
@@ -58,7 +58,7 @@ function installDB () {
 }
 
 register_deactivation_hook(__FILE__, 'remove_tables' );
- 
+
 function remove_tables(){
     global $wpdb;
     $table_name = $wpdb->prefix . 'muelle_status';
@@ -69,7 +69,7 @@ function remove_tables(){
 
 
 function muelle_form_settings(){
-	
+
 	wp_enqueue_style( $handle="ccsAdmin",  plugin_dir_url( __FILE__ ).'assets/admin/css/admin.css');
 	wp_enqueue_script( $handle="maskLibrary" , plugin_dir_url( __FILE__ ).'assets/admin/js/mask.js');
 	wp_enqueue_script( $handle="datepicker" , plugin_dir_url( __FILE__ ).'assets/admin/js/datetimepicker.min.js');
@@ -85,12 +85,12 @@ function muelle_form_settings(){
 			<form method="POST" id="adminInfo" action="<?php echo admin_url( 'admin-post.php' ) ;?> " >
 			<input type="hidden" name="action" value="process_form">
 				<div class="content-form">
-				
-				<?php 
-				
-				
+
+				<?php
+
+
 				foreach ($resultado as $form =>$item ) {
-					
+
 				 ?>
 						<div class="row bar-unity">
 						<input type="hidden"  name="<?php echo$form; ?>[id]" value="<?php echo $item['id']; ?>">
@@ -103,21 +103,21 @@ function muelle_form_settings(){
 								<label>Muelle</label>
 								<select class="u-full-width" name="<?php echo$form; ?>[muelle]"  value="<?php echo $item['muelle_actual']; ?>">
 								<option value=""></option>
-								<?php 
+								<?php
 								for($i=1;$i <= 14 ; $i++){
 									if($item['muelle_actual']==$i){
-										echo "<option value='$i' selected>$i</option>";		
+										echo "<option value='$i' selected>$i</option>";
 									}else{
 										echo "<option value='$i'>$i</option>";
 									}
-								} ?>								
+								} ?>
 								</select>
 							</div>
 							<div class="two columns">
 								<label>Atracado</label>
 								<select class="u-full-width" name="<?php echo$form; ?>[orientacion]" >
 								<option value=""></option>
-								<?php 
+								<?php
 									if($item['orientacion']==1){
 										echo "<option value='1' selected>Babor <-- </option>";
 										echo "<option value='2'>Estribor --> </option>";
@@ -126,11 +126,11 @@ function muelle_form_settings(){
 										echo "<option value='2' selected>Estribor --> </option>";
 									}else{
 										echo "<option value='1'>Babor <-- </option>";
-										echo "<option value='2'>Estribor --> </option>";										
+										echo "<option value='2'>Estribor --> </option>";
 									}
 								?>
 								</select>
-								
+
 							</div>
 							<div class="two columns">
 									<label>Fecha de atraque</label>
@@ -143,7 +143,7 @@ function muelle_form_settings(){
 						</div>
 						<div class="completeform hiden">
 							<div class="row">
-								
+
 								<div class="two-haf columns">
 									<label>Hora de atraque </label>
 									<input class="u-full-width timepickband" type="text"  id="time" name="<?php echo$form; ?>[hora]" value="<?php echo $item['hora']; ?>" />
@@ -164,8 +164,8 @@ function muelle_form_settings(){
 									<label>Eslora</label>
 									<input class="u-full-width" name="<?php echo$form; ?>[eslora]" type="text" value="<?php echo $item['eslora']; ?>" />
 								</div>
-							
-							
+
+
 							</div>
 							<div class="row">
 								<div class="two-haf columns">
@@ -190,11 +190,11 @@ function muelle_form_settings(){
 								</div>
 							</div>
 						</div>
-					</div>						
+					</div>
 				<?php } ?>
 				</div>
 				<div class="row buttons-section">
-				
+
 					<div class="three columns">
 						<button type="submit" class="admin button button-primary submitbutton" id="submit" ><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;Guardar</button>
 					</div>
@@ -205,15 +205,15 @@ function muelle_form_settings(){
 				</form>
 		</div>
 	</div>
-</div>	
+</div>
 <?php
 }
-	
+
 
 function createFormConsulDb(){
 	global $wpdb;
 	$results = $wpdb->get_results( "SELECT * FROM wp_muelle_status" );
-	if(count($results) == 0){	
+	if(count($results) == 0){
 		$results = array(
 			0 => array(
 					'id' =>"" ,
@@ -235,18 +235,18 @@ function createFormConsulDb(){
 			);
 	}
 	$results = json_decode(json_encode($results), true);
-	return $results; 
+	return $results;
 }
 
 function deleteField(){
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-		global $wpdb;	
+		global $wpdb;
 		$DelenteID=$_POST['id'];
-		$table_name = $wpdb->prefix . 'muelle_status';	
+		$table_name = $wpdb->prefix . 'muelle_status';
 		$sql = "DELETE FROM $table_name WHERE  `id` = $DelenteID;";
 		$wpdb->query($sql);
-		return $wpdb; 
-	die();	
+		return $wpdb;
+	die();
 }
 
 add_action('wp_ajax_deleteField', 'deleteField');
@@ -263,13 +263,13 @@ add_action( 'admin_post_process_form', 'process_form_data' );
 
 function process_form_data() {
 	global $wpdb;
-	$table_name = $wpdb->prefix . 'muelle_status';	 
+	$table_name = $wpdb->prefix . 'muelle_status';
 	$formInfo = $_POST;
 	unset($formInfo['action']);
 	foreach ($formInfo as $item => $info) {
-		
+
 		if($info['id'] != ""){
-			$wpdb-> update ($table_name, array(									
+			$wpdb-> update ($table_name, array(
 										'motonave'=>$info['motonave'],
 										'muelle_actual'=>$info['muelle'],
 										'orientacion'=>$info['orientacion'],
@@ -283,7 +283,7 @@ function process_form_data() {
 										'ton_anun'=>limpiarString($info['tonelaje-anun']),
 										'ton_desc'=>limpiarString($info['tonelaje-desc']),
 										'ton_acum'=>limpiarString($info['tonelaje-acum']),
-										'sal-motonave'=>$info['sal-motonave']										
+										'sal-motonave'=>$info['sal-motonave']
 										),
 										array('id'=>$info['id']) );
 		}
@@ -302,16 +302,16 @@ function process_form_data() {
 										'ton_anun'=>limpiarString($info['tonelaje-anun']),
 										'ton_desc'=>limpiarString($info['tonelaje-desc']),
 										'ton_acum'=>limpiarString($info['tonelaje-acum']),
-										'sal-motonave'=>$info['sal-motonave']	
+										'sal-motonave'=>$info['sal-motonave']
 										));
-		}	
-}	
+		}
+}
 	wp_redirect( $_SERVER['HTTP_REFERER'] );
 }
 
 
 function styles_muelle() {
-    wp_register_style( 'muellecss', plugin_dir_url( __FILE__ ).'assets/client/css/muelle.css', FALSE, NULL, 'all' ); 
+    wp_register_style( 'muellecss', plugin_dir_url( __FILE__ ).'assets/client/css/muelle.css', FALSE, NULL, 'all' );
     wp_register_script('maskLibrary' , plugin_dir_url( __FILE__ ).'assets/client/js/muelle.js',FALSE, NULL, 'all');
 }
 
@@ -320,7 +320,7 @@ add_action( 'wp_enqueue_scripts', 'styles_muelle' );
 
 function muelle_status() {
 	$datainfo = createFormConsulDb();
-	
+
 ?>
 	<div class="container_muelle">
 		<div class="loader">
@@ -331,7 +331,7 @@ function muelle_status() {
 					<div class="sk-cube4 sk-cube"></div>
 					<div class="sk-cube3 sk-cube"></div>
 				</div>
-			</div>	
+			</div>
 		</div>
 		<div class="muelle_back">
 			<img src="<?php echo plugins_url( 'assets/client/img/mapa-puerto.png', __FILE__ ) ?>" draggable="false" />
@@ -340,7 +340,7 @@ function muelle_status() {
 			if( $datainfo[0]['motonave'] != "" ){
 				foreach ($datainfo as $ship) {
 			?>
-				<div class="ship <?php echo "muelle{$ship['muelle_actual']}" ; 
+				<div class="ship <?php echo "muelle{$ship['muelle_actual']}" ;
 											if($ship['orientacion']==1){
 													echo" babor";
 												}
@@ -351,12 +351,12 @@ function muelle_status() {
 											id="<?php echo"muelle{$ship['muelle_actual']}" ;?>" >
 				 <span class="tooltiptext"><?php echo $ship['motonave'];  ?></span>
 				</div>
-			<?php 
+			<?php
 			}
 			?>
 			</div>
 		</div>
-		
+
 		<div class="container infomuelle" id ="info-ship">
 		<?php
 			foreach ($datainfo as $ship) { ?>
@@ -435,14 +435,14 @@ function muelle_status() {
 	        </table>
 	    </div>
 	</div>
-</div>		
-		<?php } }		
+</div>
+		<?php } }
 		?>
 		</div>
 	</div>
 <?php
-	wp_enqueue_style('muellecss'); 
-	wp_enqueue_script('maskLibrary');	 
+	wp_enqueue_style('muellecss');
+	wp_enqueue_script('maskLibrary');
 }
 
 add_shortcode('muelle_status', 'muelle_status');
@@ -450,21 +450,21 @@ add_shortcode('muelle_status', 'muelle_status');
 
 function getFiveLastpdf($atts){
 
-	$attachments = get_posts( 
+	$attachments = get_posts(
 		array(
 		    'post_type' => 'attachment',
 		    'posts_per_page' => $atts['val'],
 		    'post_status' => null,
 		    'post_mime_type' => 'application/pdf'
-    	) 
+    	)
 	);
 ?>
-	<div class="filepicker">	
+	<div class="filepicker">
 	<select>
 
 	<option value="0">Seleccione una fecha</option>
-	
-<?php 	
+
+<?php
 	foreach ( $attachments as $attachment ) {
 		$title = get_the_title($attachment);
 		$title = explode(" ", $title);
@@ -477,14 +477,14 @@ function getFiveLastpdf($atts){
 
 	</select>
 
-	
+
 	<button>Descargar Situacion portuaria</button>
-	
+
 	</div>
-	
-	
-<?php 	
-	
+
+
+<?php
+
 }
 
 add_shortcode('pdfselect', 'getFiveLastpdf');
