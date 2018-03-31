@@ -29,7 +29,7 @@
     
     $(".filepicker button").click(function (ev){
         d=$(".filepicker select").val()
-        if (d != 0){
+        if (d != 'Descargar Situacion portuaria'){
             window.open(d)
             } 
     })
