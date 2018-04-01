@@ -26,6 +26,12 @@ add_action('admin_menu','mapEdit_plugin_menu');
 
 register_activation_hook( __FILE__, 'installDB' );
 
+//------Script SQL-------->
+/**
+ALTER TABLE `wp_muelle_status` ADD `responsable` VARCHAR(30) NULL,
+ALTER TABLE `wp_muelle_status` ADD `actualizacion` VARCHAR(30) NULL
+**/
+
 function installDB () {
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	global $wpdb;
@@ -43,12 +49,14 @@ function installDB () {
 		  `agente` varchar(75) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `client_princp` varchar(99) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `producto` varchar(99) COLLATE utf8_spanish_ci DEFAULT NULL,
-	      `eslora` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-	      `calado` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+      `eslora` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+      `calado` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `ton_anun` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `ton_desc` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `ton_acum` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-		  `sal-motonave` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL) $charset_collate;";
+		  `sal-motonave` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+		 	`responsable` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+			`actualizacion` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL) $charset_collate;";
 
 		dbDelta( $sql );
 		$sql = "ALTER TABLE $table_name ADD PRIMARY KEY (`id`);";
@@ -242,7 +250,9 @@ function createFormConsulDb(){
 					'ton_anun' =>"" ,
 					'ton_desc' => "",
 					'ton_acum' => "",
-					'sal-motonave'=>""
+					'sal-motonave'=>"",
+					'responsable' => "",
+					'actualizacion'=>""
 					)
 			);
 	}
@@ -298,7 +308,9 @@ function process_form_data() {
 										'ton_anun'=>limpiarString($info['tonelaje-anun']),
 										'ton_desc'=>limpiarString($info['tonelaje-desc']),
 										'ton_acum'=>limpiarString($info['tonelaje-acum']),
-										'sal-motonave'=>$info['sal-motonave']
+										'sal-motonave'=>$info['sal-motonave'],
+										'responsable' => $info['responsable'],
+										'actualizacion'=> $info['actualizacion']
 										),
 										array('id'=>$info['id']) );
 		}
