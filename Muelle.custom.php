@@ -89,10 +89,9 @@ function muelle_form_settings(){
 
 				<?php
 
-
 				foreach ($resultado as $form =>$item ) {
 
-				 ?>
+				?>
 						<div class="row bar-unity">
 						<input type="hidden"  name="<?php echo$form; ?>[id]" value="<?php echo $item['id']; ?>">
 						<div class="front">
@@ -190,6 +189,17 @@ function muelle_form_settings(){
 									<input class="u-full-width" id="ton" maxlength="20" name="<?php echo $form; ?>[sal-motonave]"type="text" value="<?php echo $item['sal-motonave']; ?>" />
 								</div>
 							</div>
+							<div class="row">
+								<div class="five columns">
+									<label>Responsable</label>
+									<input class="u-full-width"  name="<?php echo $form; ?>[responsable]"type="text" value="<?php echo $item['responsable']; ?>" />
+								</div>
+								<div class="three columns">
+									<label>Fecha de actualizacion</label>
+									<input class="u-full-width" id="date-ac" data-toggle="datepicker" maxlength="20" name="<?php echo $form; ?>[actualizacion]"type="text" value="<?php echo $item['actualizacion']; ?>" />
+								</div>
+							</div>
+
 						</div>
 					</div>
 				<?php } ?>
@@ -213,7 +223,8 @@ function muelle_form_settings(){
 
 function createFormConsulDb(){
 	global $wpdb;
-	$results = $wpdb->get_results( "SELECT * FROM wp_muelle_status" );
+	$table_name = $wpdb->prefix . 'muelle_status';
+	$results = $wpdb->get_results( "SELECT * FROM $table_name"  );
 	if(count($results) == 0){
 		$results = array(
 			0 => array(
@@ -264,8 +275,8 @@ function limpiarString($texto) {
 add_action( 'admin_post_process_form', 'process_form_data' );
 
 function process_form_data() {
-//	$wpdb->show_errors = true;
-	//$wpdb->suppress_errors = false;
+	$wpdb->show_errors = true;
+	$wpdb->suppress_errors = false;
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'muelle_status';
 	$formInfo = $_POST;
@@ -311,8 +322,8 @@ function process_form_data() {
 		}
 }
 
-wp_redirect( $_SERVER['HTTP_REFERER'] );
-//return $wpdb->print_error();
+// wp_redirect( $_SERVER['HTTP_REFERER'] );
+return $wpdb->print_error();
 }
 
 
@@ -326,7 +337,6 @@ add_action( 'wp_enqueue_scripts', 'styles_muelle' );
 
 function muelle_status() {
 	$datainfo = createFormConsulDb();
-
 ?>
 	<div class="container_muelle">
 		<div class="loader">
