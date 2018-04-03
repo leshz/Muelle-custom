@@ -26,12 +26,6 @@ add_action('admin_menu','mapEdit_plugin_menu');
 
 register_activation_hook( __FILE__, 'installDB' );
 
-//------Script SQL-------->
-/**
-ALTER TABLE `wp_muelle_status` ADD `responsable` VARCHAR(30) NULL,
-ALTER TABLE `wp_muelle_status` ADD `actualizacion` VARCHAR(30) NULL
-**/
-
 function installDB () {
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	global $wpdb;
