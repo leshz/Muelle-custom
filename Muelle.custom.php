@@ -193,11 +193,11 @@ function muelle_form_settings(){
 							</div>
 							<div class="row">
 								<div class="five columns">
-									<label>Responsable</label>
+									<label>Operador</label>
 									<input class="u-full-width"  name="<?php echo $form; ?>[responsable]"type="text" value="<?php echo $item['responsable']; ?>" />
 								</div>
 								<div class="three columns">
-									<label>Fecha de actualizacion</label>
+									<label>Hora y fecha de actualizacion</label>
 									<input class="u-full-width" id="date-ac" data-toggle="datepicker" maxlength="20" name="<?php echo $form; ?>[actualizacion]"type="text" value="<?php echo $item['actualizacion']; ?>" />
 								</div>
 							</div>
@@ -435,7 +435,7 @@ function muelle_status() {
 	                    	} ?></td>
 	                </tr>
 									<tr>
-										<th class="ulti" >Responsable</th>
+										<th class="ulti" >Operador</th>
 										<td><?php echo $ship['responsable'] ?></td>
 									</tr>
 	            </tbody>
@@ -473,7 +473,7 @@ function muelle_status() {
 	                    <td><?php echo $ship['muelle_actual']; ?></td>
 	                </tr>
 									<tr>
-										<th class="ulti" >Última actualización</th>
+										<th class="ulti" >Hora y fecha de actualización</th>
 										<td><?php echo $ship['actualizacion'] ?></td>
 									</tr>
 	            </tbody>
