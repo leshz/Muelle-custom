@@ -293,6 +293,7 @@ function process_form_data() {
 	unset($formInfo['action']);
 	foreach ($formInfo as $item => $info) {
 
+		$coco = setdatedb($info['actualizacion']);
 		if($info['id'] != ""){
 			$wpdb-> update ($table_name, array(
 										'motonave'=>$info['motonave'],
@@ -310,11 +311,11 @@ function process_form_data() {
 										'ton_acum'=>limpiarString($info['tonelaje-acum']),
 										'sal-motonave'=>$info['sal-motonave'],
 										'responsable' => $info['responsable'],
-										'actualizacion'=> $info['actualizacion']
+										'actualizacion'=> setdatedb($info['actualizacion'])
 										),
 										array('id'=>$info['id']) );
 		}
-		else{
+		else {
 			$wpdb->insert($table_name, array(
 										'motonave'=>$info['motonave'],
 										'muelle_actual'=>$info['muelle'],
@@ -329,13 +330,21 @@ function process_form_data() {
 										'ton_anun'=>limpiarString($info['tonelaje-anun']),
 										'ton_desc'=>limpiarString($info['tonelaje-desc']),
 										'ton_acum'=>limpiarString($info['tonelaje-acum']),
-										'sal-motonave'=>$info['sal-motonave']
+										'sal-motonave'=>$info['sal-motonave'],
+										'responsable' => $info['responsable'],
+										'actualizacion'=> setdatedb($info['actualizacion'])
 										));
 		}
+	}
+	wp_redirect( $_SERVER['HTTP_REFERER'] );
+	// return $wpdb->print_error();
 }
 
-// wp_redirect( $_SERVER['HTTP_REFERER'] );
-return $wpdb->print_error();
+function setdatedb($date){
+	date_default_timezone_set('America/Bogota');
+	if ($date == '') {
+		return  date("d/m/Y");
+	}
 }
 
 
@@ -424,13 +433,17 @@ function muelle_status() {
 	                    <td><?php echo $ship['calado']; ?></td>
 	                </tr>
 	                <tr>
-	                    <th class="ulti">Atracado</th>
+	                    <th>Atracado</th>
 	                    <td><?php if ($ship['orientacion']==1){
 	                    		echo "Babor";
 	                    	} else if ($ship['orientacion']==2){
 	                    		echo "Estribor";
 	                    	} ?></td>
 	                </tr>
+									<tr>
+										<th class="ulti" >Responsable</th>
+										<td><?php echo $ship['responsable'] ?></td>
+									</tr>
 	            </tbody>
 	        </table>
 	    </div>
@@ -462,9 +475,13 @@ function muelle_status() {
 	                    <td><?php echo $ship['sal-motonave']; ?> TM</td>
 	                </tr>
 	                <tr>
-	                    <th class="ulti">Atracado en Muelle #</th>
+	                    <th>Atracado en Muelle #</th>
 	                    <td><?php echo $ship['muelle_actual']; ?></td>
 	                </tr>
+									<tr>
+										<th class="ulti" >Última actualización</th>
+										<td><?php echo $ship['actualizacion'] ?></td>
+									</tr>
 	            </tbody>
 	        </table>
 	    </div>
