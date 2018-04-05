@@ -3,7 +3,7 @@
 	Plugin Name:	Muelle-wp-custom
 	Plugin URI:		http://github.com/leshz/
 	Description:	Plugin para mostrar estado del muelle e informacion
-	Version: 			0.1.1
+	Version: 			0.1.2
 	Author:				Jeffer Barragán
 	Author URI:		github.com/leshz
 	License:		GPLv2 or later
@@ -43,12 +43,14 @@ function installDB () {
 		  `agente` varchar(75) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `client_princp` varchar(99) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `producto` varchar(99) COLLATE utf8_spanish_ci DEFAULT NULL,
-	      `eslora` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-	      `calado` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+      `eslora` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+      `calado` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `ton_anun` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `ton_desc` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
 		  `ton_acum` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-		  `sal-motonave` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL) $charset_collate;";
+		  `sal-motonave` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+		 	`responsable` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+			`actualizacion` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL) $charset_collate;";
 
 		dbDelta( $sql );
 		$sql = "ALTER TABLE $table_name ADD PRIMARY KEY (`id`);";
@@ -89,10 +91,9 @@ function muelle_form_settings(){
 
 				<?php
 
-
 				foreach ($resultado as $form =>$item ) {
 
-				 ?>
+				?>
 						<div class="row bar-unity">
 						<input type="hidden"  name="<?php echo$form; ?>[id]" value="<?php echo $item['id']; ?>">
 						<div class="front">
@@ -178,7 +179,7 @@ function muelle_form_settings(){
 									<input class="u-full-width" id="ton"  maxlength="20" name="<?php echo $form; ?>[tonelaje-anun]" type="text" value="<?php echo $item['ton_anun']; ?>" />
 								</div>
 								<div class="two-haf columns">
-									<label>Tonelaje Descargado</label>
+									<label>Tonelaje descargado día</label>
 									<input class="u-full-width"   maxlength="20" id="ton"name="<?php echo $form; ?>[tonelaje-desc]" type="text" value="<?php echo $item['ton_desc']; ?>" />
 								</div>
 								<div class="two-haf columns">
@@ -190,6 +191,21 @@ function muelle_form_settings(){
 									<input class="u-full-width" id="ton" maxlength="20" name="<?php echo $form; ?>[sal-motonave]"type="text" value="<?php echo $item['sal-motonave']; ?>" />
 								</div>
 							</div>
+							<div class="row">
+								<div class="five columns">
+									<label>Operador</label>
+									<input class="u-full-width"  name="<?php echo $form; ?>[responsable]"type="text" value="<?php echo $item['responsable']; ?>" />
+								</div>
+								<div class="three columns">
+									<label>Hora y fecha de actualizacion</label>
+									<input class="u-full-width" id="date-ac"  data-toggle="datepicker"  maxlength="20" name="<?php echo $form; ?>[actualizacion]"type="text" value="<?php echo $item['actualizacion']; ?>" />
+
+								</div>
+								<div class="twelve columns">
+									<small>Si el campo <strong>Hora y fecha de actualizacion</strong> se encuentra vacio, se actualizara automaticamente</small>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				<?php } ?>
@@ -213,7 +229,8 @@ function muelle_form_settings(){
 
 function createFormConsulDb(){
 	global $wpdb;
-	$results = $wpdb->get_results( "SELECT * FROM wp_muelle_status" );
+	$table_name = $wpdb->prefix . 'muelle_status';
+	$results = $wpdb->get_results( "SELECT * FROM $table_name"  );
 	if(count($results) == 0){
 		$results = array(
 			0 => array(
@@ -231,7 +248,9 @@ function createFormConsulDb(){
 					'ton_anun' =>"" ,
 					'ton_desc' => "",
 					'ton_acum' => "",
-					'sal-motonave'=>""
+					'sal-motonave'=>"",
+					'responsable' => "",
+					'actualizacion'=>""
 					)
 			);
 	}
@@ -264,8 +283,7 @@ function limpiarString($texto) {
 add_action( 'admin_post_process_form', 'process_form_data' );
 
 function process_form_data() {
-//	$wpdb->show_errors = true;
-	//$wpdb->suppress_errors = false;
+
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'muelle_status';
 	$formInfo = $_POST;
@@ -287,11 +305,13 @@ function process_form_data() {
 										'ton_anun'=>limpiarString($info['tonelaje-anun']),
 										'ton_desc'=>limpiarString($info['tonelaje-desc']),
 										'ton_acum'=>limpiarString($info['tonelaje-acum']),
-										'sal-motonave'=>$info['sal-motonave']
+										'sal-motonave'=>$info['sal-motonave'],
+										'responsable' => $info['responsable'],
+										'actualizacion'=> setdatedb($info['actualizacion'])
 										),
 										array('id'=>$info['id']) );
 		}
-		else{
+		else {
 			$wpdb->insert($table_name, array(
 										'motonave'=>$info['motonave'],
 										'muelle_actual'=>$info['muelle'],
@@ -306,13 +326,30 @@ function process_form_data() {
 										'ton_anun'=>limpiarString($info['tonelaje-anun']),
 										'ton_desc'=>limpiarString($info['tonelaje-desc']),
 										'ton_acum'=>limpiarString($info['tonelaje-acum']),
-										'sal-motonave'=>$info['sal-motonave']
+										'sal-motonave'=>$info['sal-motonave'],
+										'responsable' => $info['responsable'],
+										'actualizacion'=> setdatedb($info['actualizacion'])
 										));
 		}
+
+	}
+	wp_redirect( $_SERVER['HTTP_REFERER'] );
+	// return $wpdb->print_error();
 }
 
-wp_redirect( $_SERVER['HTTP_REFERER'] );
-//return $wpdb->print_error();
+function setdatedb($date){
+	date_default_timezone_set('America/Bogota');
+	if ($date == '') {
+		$fecha =  date("d/m/Y");
+		$hora = date("h:i:sa");
+		$completa = $fecha." - ".$hora;
+		return  $completa ;
+	}elseif (strlen($date) == 10) {
+		$hora = date("h:i:sa");
+		return $date." - ".$hora;
+	}else {
+		return $date;
+	}
 }
 
 
@@ -326,7 +363,6 @@ add_action( 'wp_enqueue_scripts', 'styles_muelle' );
 
 function muelle_status() {
 	$datainfo = createFormConsulDb();
-
 ?>
 	<div class="container_muelle">
 		<div class="loader">
@@ -402,13 +438,17 @@ function muelle_status() {
 	                    <td><?php echo $ship['calado']; ?></td>
 	                </tr>
 	                <tr>
-	                    <th class="ulti">Atracado</th>
+	                    <th>Atracado</th>
 	                    <td><?php if ($ship['orientacion']==1){
 	                    		echo "Babor";
 	                    	} else if ($ship['orientacion']==2){
 	                    		echo "Estribor";
 	                    	} ?></td>
 	                </tr>
+									<tr>
+										<th class="ulti" >Operador</th>
+										<td><?php echo $ship['responsable'] ?></td>
+									</tr>
 	            </tbody>
 	        </table>
 	    </div>
@@ -428,7 +468,7 @@ function muelle_status() {
 	                    <td><?php echo $ship['ton_anun']; ?> TM</td>
 	                </tr>
 	                <tr>
-	                    <th>Tonelaje Descargado</th>
+	                    <th>Tonelaje descargado día</th>
 	                    <td><?php echo $ship['ton_desc']; ?> TM</td>
 	                </tr>
 	                 <tr>
@@ -440,9 +480,13 @@ function muelle_status() {
 	                    <td><?php echo $ship['sal-motonave']; ?> TM</td>
 	                </tr>
 	                <tr>
-	                    <th class="ulti">Atracado en Muelle #</th>
+	                    <th>Atracado en Muelle #</th>
 	                    <td><?php echo $ship['muelle_actual']; ?></td>
 	                </tr>
+									<tr>
+										<th class="ulti" >Hora y fecha de actualización</th>
+										<td><?php echo $ship['actualizacion'] ?></td>
+									</tr>
 	            </tbody>
 	        </table>
 	    </div>
@@ -481,13 +525,17 @@ function muelle_status() {
 	                    <td><?php echo $ship['calado']; ?></td>
 	                </tr>
 	                <tr>
-	                    <th class="ulti">Moorgin to</th>
+	                    <th>Moorgin to</th>
 	                    <td><?php if ($ship['orientacion']==1){
 	                    		echo "Port";
 	                    	} else if ($ship['orientacion']==2){
 	                    		echo "Standboard";
 	                    	} ?></td>
 	                </tr>
+									<tr>
+										<th class="ulti" >Operator</th>
+										<td><?php echo $ship['responsable'] ?></td>
+									</tr>
 	            </tbody>
 	        </table>
 	    </div>
@@ -519,9 +567,13 @@ function muelle_status() {
 	                    <td><?php echo $ship['sal-motonave']; ?> TM</td>
 	                </tr>
 	                <tr>
-	                    <th class="ulti">Mooring at dock #</th>
+	                    <th>Mooring at dock #</th>
 	                    <td><?php echo $ship['muelle_actual']; ?></td>
 	                </tr>
+									<tr>
+										<th class="ulti" >Last update</th>
+										<td><?php echo $ship['actualizacion'] ?></td>
+									</tr>
 	            </tbody>
 	        </table>
 	    </div>
