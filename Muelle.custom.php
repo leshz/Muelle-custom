@@ -198,7 +198,11 @@ function muelle_form_settings(){
 								</div>
 								<div class="three columns">
 									<label>Hora y fecha de actualizacion</label>
-									<input class="u-full-width" id="date-ac" data-toggle="datepicker" maxlength="20" name="<?php echo $form; ?>[actualizacion]"type="text" value="<?php echo $item['actualizacion']; ?>" />
+									<input class="u-full-width" id="date-ac"  data-toggle="datepicker"  maxlength="20" name="<?php echo $form; ?>[actualizacion]"type="text" value="<?php echo $item['actualizacion']; ?>" />
+
+								</div>
+								<div class="twelve columns">
+									<small>Si el campo <strong>Hora y fecha de actualizacion</strong> se encuentra vacio, se actualizara automaticamente</small>
 								</div>
 							</div>
 
@@ -279,15 +283,13 @@ function limpiarString($texto) {
 add_action( 'admin_post_process_form', 'process_form_data' );
 
 function process_form_data() {
-	$wpdb->show_errors = true;
-	$wpdb->suppress_errors = false;
+
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'muelle_status';
 	$formInfo = $_POST;
 	unset($formInfo['action']);
 	foreach ($formInfo as $item => $info) {
 
-		$coco = setdatedb($info['actualizacion']);
 		if($info['id'] != ""){
 			$wpdb-> update ($table_name, array(
 										'motonave'=>$info['motonave'],
@@ -329,6 +331,7 @@ function process_form_data() {
 										'actualizacion'=> setdatedb($info['actualizacion'])
 										));
 		}
+
 	}
 	wp_redirect( $_SERVER['HTTP_REFERER'] );
 	// return $wpdb->print_error();
@@ -337,7 +340,15 @@ function process_form_data() {
 function setdatedb($date){
 	date_default_timezone_set('America/Bogota');
 	if ($date == '') {
-		return  date("d/m/Y");
+		$fecha =  date("d/m/Y");
+		$hora = date("h:i:sa");
+		$completa = $fecha." - ".$hora;
+		return  $completa ;
+	}elseif (strlen($date) == 10) {
+		$hora = date("h:i:sa");
+		return $date." - ".$hora;
+	}else {
+		return $date;
 	}
 }
 

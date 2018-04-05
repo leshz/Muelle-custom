@@ -3,7 +3,7 @@
         $.fn.datepicker.setDefaults({ startDate: false, language: 'es-ES', format: 'dd/mm/yyyy' })
         var formAdmin = $('.muelle-form')
         formAdmin.find('#date').mask('00/00/0000')
-        formAdmin.find('#date-ac').mask('00/00/0000')
+        formAdmin.find('#date-ac').mask('00/00/0000 00:00:00AA',{'translation': {A: { pattern: /(^[ampmAMPM])/}}});
         formAdmin.find('#ton').mask('000.000.000.000,000', { reverse: true })
         formAdmin.find('#slora').mask('000.000.000,00', { reverse: true })
         formAdmin.find('#calado').mask('000.000.000,00', { reverse: true })
