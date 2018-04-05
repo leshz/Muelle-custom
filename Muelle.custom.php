@@ -179,7 +179,7 @@ function muelle_form_settings(){
 									<input class="u-full-width" id="ton"  maxlength="20" name="<?php echo $form; ?>[tonelaje-anun]" type="text" value="<?php echo $item['ton_anun']; ?>" />
 								</div>
 								<div class="two-haf columns">
-									<label>Tonelaje Descargado</label>
+									<label>Tonelaje descargado día</label>
 									<input class="u-full-width"   maxlength="20" id="ton"name="<?php echo $form; ?>[tonelaje-desc]" type="text" value="<?php echo $item['ton_desc']; ?>" />
 								</div>
 								<div class="two-haf columns">
@@ -468,7 +468,7 @@ function muelle_status() {
 	                    <td><?php echo $ship['ton_anun']; ?> TM</td>
 	                </tr>
 	                <tr>
-	                    <th>Tonelaje Descargado</th>
+	                    <th>Tonelaje descargado día</th>
 	                    <td><?php echo $ship['ton_desc']; ?> TM</td>
 	                </tr>
 	                 <tr>
@@ -525,13 +525,17 @@ function muelle_status() {
 	                    <td><?php echo $ship['calado']; ?></td>
 	                </tr>
 	                <tr>
-	                    <th class="ulti">Moorgin to</th>
+	                    <th>Moorgin to</th>
 	                    <td><?php if ($ship['orientacion']==1){
 	                    		echo "Port";
 	                    	} else if ($ship['orientacion']==2){
 	                    		echo "Standboard";
 	                    	} ?></td>
 	                </tr>
+									<tr>
+										<th class="ulti" >Operator</th>
+										<td><?php echo $ship['responsable'] ?></td>
+									</tr>
 	            </tbody>
 	        </table>
 	    </div>
@@ -563,9 +567,13 @@ function muelle_status() {
 	                    <td><?php echo $ship['sal-motonave']; ?> TM</td>
 	                </tr>
 	                <tr>
-	                    <th class="ulti">Mooring at dock #</th>
+	                    <th>Mooring at dock #</th>
 	                    <td><?php echo $ship['muelle_actual']; ?></td>
 	                </tr>
+									<tr>
+										<th class="ulti" >Last update</th>
+										<td><?php echo $ship['actualizacion'] ?></td>
+									</tr>
 	            </tbody>
 	        </table>
 	    </div>
