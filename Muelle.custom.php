@@ -3,7 +3,7 @@
 	Plugin Name:	Muelle-wp-custom
 	Plugin URI:		http://github.com/leshz/
 	Description:	Plugin para mostrar estado del muelle e informacion
-	Version: 			0.1.1
+	Version: 			0.1.2
 	Author:				Jeffer Barragán
 	Author URI:		github.com/leshz
 	License:		GPLv2 or later
