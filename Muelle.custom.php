@@ -23,3 +23,6 @@ require  WCPM_PLUGIN_DIR . '/database.php';
 require  WCPM_PLUGIN_DIR . '/helpers.php';
 require  WCPM_PLUGIN_DIR . '/adminview.php';
 require  WCPM_PLUGIN_DIR . '/clientview.php';
+
+register_deactivation_hook( __FILE__ , 'remove_tables' );
+register_activation_hook( __FILE__ , 'installDB' );

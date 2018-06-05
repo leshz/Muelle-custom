@@ -1,5 +1,9 @@
 <?php 
 
+    // Hooks WP
+//register_deactivation_hook( __FILE__ , 'remove_tables' );
+//register_activation_hook( __FILE__ , 'installDB' );
+
 function installDB () {
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	global $wpdb;
@@ -10,10 +14,10 @@ function installDB () {
 		$charset_collate = $wpdb->get_charset_collate();
 		$sql =  "CREATE TABLE $table_name (`id` int(3) NOT NULL,
                 `motonave` varchar(75) COLLATE utf8_spanish_ci NOT NULL,
-                `muelle_actual` int(2) DEFAULT NULL,
-                `orientacion` int(2) DEFAULT NULL,
+                `muelle_actual` int(5) DEFAULT NULL,
+                `orientacion` int(5) DEFAULT NULL,
                 `fecha_atrac` varchar(11) COLLATE utf8_spanish_ci DEFAULT NULL,
-                `hora` varchar(8) COLLATE utf8_spanish_ci DEFAULT NULL,
+                `hora` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
                 `agente` varchar(75) COLLATE utf8_spanish_ci DEFAULT NULL,
                 `client_princp` varchar(99) COLLATE utf8_spanish_ci DEFAULT NULL,
                 `producto` varchar(99) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -40,7 +44,6 @@ function remove_tables(){
 	$wpdb->query($sql);
 }
 
-// Hooks WP
-register_deactivation_hook(__FILE__, 'remove_tables' );
-register_activation_hook( __FILE__, 'installDB' );
+
+  
 ?>

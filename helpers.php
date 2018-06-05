@@ -49,7 +49,13 @@ function process_form_data() {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'muelle_status';
 	$formInfo = $_POST;
+	
 	unset($formInfo['action']);
+	
+	echo "<pre>";
+	print_r($_POST);
+	echo "</pre>";
+	
 	foreach ($formInfo as $item => $info) {
 		if($info['id'] != ""){
 			$wpdb-> update ($table_name, array(
@@ -90,11 +96,14 @@ function process_form_data() {
 										'sal-motonave'=>$info['sal-motonave'],
 										'responsable' => $info['responsable'],
 										'actualizacion'=> setdatedb($info['actualizacion'])
-										));
+										)
+							);
 		}
 
 	}
-	wp_redirect( $_SERVER['HTTP_REFERER'] );
+	return $wpdb->print_error();
+	//wp_redirect( $_SERVER['HTTP_REFERER'] );
+	
 }
 
 function setdatedb($date){
